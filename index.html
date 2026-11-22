@@ -1,0 +1,1418 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Undangan pernikahan Muhamad Faishal Azizi dan Widi Siti Alivah."
+    />
+    <meta name="theme-color" content="#142b4a" />
+    <title>The Wedding of Muhamad Faishal Azizi &amp; Widi Siti Alivah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <style>
+      :root {
+        --navy: #142b4a;
+        --deep-navy: #0b1b30;
+        --ivory: #f8f7f2;
+        --gold: #c6a76a;
+        --slate: #29384a;
+        --muted: #78818b;
+        --line: rgba(20, 43, 74, 0.16);
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --sans: "DM Sans", sans-serif;
+        --script: "Parisienne", cursive;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 5rem;
+      }
+
+      body {
+        margin: 0;
+        background: var(--ivory);
+        color: var(--slate);
+        font-family: var(--sans);
+        font-size: 14px;
+        line-height: 1.8;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body.locked {
+        overflow: hidden;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 4px;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.9rem;
+        color: var(--gold);
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin: 0;
+        color: var(--navy);
+        font-family: var(--serif);
+        font-size: clamp(2.6rem, 6vw, 4.2rem);
+        font-weight: 400;
+        line-height: 0.98;
+      }
+
+      .section-intro {
+        max-width: 30rem;
+        margin: 1.1rem auto 0;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .section {
+        padding: 7rem 1.5rem;
+      }
+
+      .section-inner {
+        width: min(100%, 1120px);
+        margin: 0 auto;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        margin: 1.8rem auto;
+        color: var(--gold);
+      }
+
+      .ornament::before,
+      .ornament::after {
+        width: 3.2rem;
+        height: 1px;
+        background: var(--gold);
+        content: "";
+        opacity: 0.65;
+      }
+
+      .ornament span {
+        font-size: 0.82rem;
+      }
+
+      .cover {
+        position: fixed;
+        z-index: 20;
+        inset: 0;
+        display: grid;
+        min-height: 100svh;
+        overflow: hidden;
+        place-items: center;
+        padding: 2rem 1.25rem;
+        background:
+          radial-gradient(ellipse at 82% 18%, rgba(198, 167, 106, 0.16), transparent 34%),
+          linear-gradient(135deg, var(--navy), var(--deep-navy) 74%);
+        color: var(--ivory);
+        transition:
+          opacity 0.8s ease,
+          visibility 0.8s ease;
+      }
+
+      .cover.is-open {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .cover::before,
+      .cover::after {
+        position: absolute;
+        width: 34rem;
+        height: 34rem;
+        border: 1px solid rgba(198, 167, 106, 0.16);
+        border-radius: 50%;
+        content: "";
+        pointer-events: none;
+      }
+
+      .cover::before {
+        top: -21rem;
+        right: -9rem;
+      }
+
+      .cover::after {
+        bottom: -25rem;
+        left: -16rem;
+        width: 42rem;
+        height: 42rem;
+      }
+
+      .cover-inner {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 37rem);
+        text-align: center;
+      }
+
+      .cover-kicker {
+        margin: 0 0 1rem;
+        color: var(--gold);
+        font-size: 0.63rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+      }
+
+      .cover h1 {
+        margin: 0;
+        color: var(--ivory);
+        font-family: var(--serif);
+        font-size: clamp(3rem, 9vw, 6.2rem);
+        font-weight: 400;
+        line-height: 0.87;
+      }
+
+      .cover h1 span {
+        display: block;
+      }
+
+      .cover-ampersand {
+        margin: 0.2em 0;
+        color: var(--gold);
+        font-family: var(--script);
+        font-size: 0.62em;
+      }
+
+      .cover-date {
+        margin: 1.5rem 0 1.9rem;
+        color: rgba(248, 247, 242, 0.7);
+        font-size: 0.7rem;
+        letter-spacing: 0.23em;
+        text-transform: uppercase;
+      }
+
+      .cover-art {
+        width: min(45vw, 210px);
+        min-width: 138px;
+        margin: 0 auto 1.1rem;
+        filter: drop-shadow(0 16px 25px rgba(0, 0, 0, 0.16));
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .cover-caption {
+        margin: 0 0 1.5rem;
+        color: rgba(248, 247, 242, 0.66);
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        font-style: italic;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+        padding: 0.75rem 1.45rem;
+        border: 1px solid var(--gold);
+        border-radius: 2px;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition:
+          color 0.25s ease,
+          background 0.25s ease,
+          transform 0.25s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button-gold {
+        background: var(--gold);
+        color: var(--deep-navy);
+      }
+
+      .button-gold:hover {
+        background: #d3b77f;
+      }
+
+      .button-outline {
+        color: var(--navy);
+      }
+
+      .button-outline:hover {
+        background: var(--navy);
+        color: var(--ivory);
+      }
+
+      .button:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+
+      .opening {
+        position: relative;
+        padding-top: 8.5rem;
+        padding-bottom: 8.5rem;
+        background:
+          radial-gradient(ellipse at 50% 0, rgba(198, 167, 106, 0.11), transparent 45%),
+          var(--ivory);
+      }
+
+      .opening-copy {
+        max-width: 44rem;
+        margin: 0 auto;
+        color: var(--slate);
+        font-family: var(--serif);
+        font-size: clamp(1.55rem, 3.4vw, 2.35rem);
+        line-height: 1.48;
+      }
+
+      .script-accent {
+        display: block;
+        margin: 1.1rem 0;
+        color: var(--gold);
+        font-family: var(--script);
+        font-size: 2.6rem;
+        line-height: 1.1;
+      }
+
+      .verse {
+        max-width: 36rem;
+        margin: 2rem auto 0;
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-style: italic;
+      }
+
+      .verse cite {
+        display: block;
+        margin-top: 0.55rem;
+        color: var(--gold);
+        font-size: 0.63rem;
+        font-style: normal;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .couple {
+        background: #f0eee7;
+      }
+
+      .couple-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(2rem, 9vw, 8rem);
+        width: min(100%, 800px);
+        margin: 4rem auto 0;
+      }
+
+      .person {
+        text-align: center;
+      }
+
+      .portrait-wrap {
+        position: relative;
+        width: min(100%, 270px);
+        aspect-ratio: 0.82;
+        margin: 0 auto 1.8rem;
+        padding: 0.6rem;
+        border: 1px solid rgba(198, 167, 106, 0.7);
+      }
+
+      .portrait-wrap::after {
+        position: absolute;
+        z-index: 0;
+        top: 0.95rem;
+        left: 0.95rem;
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba(20, 43, 74, 0.12);
+        content: "";
+      }
+
+      .portrait-wrap img {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: saturate(0.7);
+      }
+
+      .portrait-art {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+      }
+
+      .portrait-character {
+        transform-box: fill-box;
+        transform-origin: center;
+        filter: drop-shadow(0 7px 5px rgba(11, 27, 48, 0.12));
+        animation: portrait-float 5s ease-in-out infinite;
+      }
+
+      .person-name {
+        margin: 0;
+        color: var(--navy);
+        font-family: var(--serif);
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .person-role {
+        display: inline-block;
+        margin-top: 0.8rem;
+        color: var(--gold);
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.21em;
+        text-transform: uppercase;
+      }
+
+      .person-bio {
+        max-width: 18rem;
+        margin: 0.9rem auto 0;
+        color: var(--muted);
+        font-size: 0.75rem;
+      }
+
+      .event {
+        position: relative;
+        overflow: hidden;
+        background: var(--navy);
+        color: var(--ivory);
+      }
+
+      .event::before {
+        position: absolute;
+        top: -16rem;
+        left: 50%;
+        width: 34rem;
+        height: 34rem;
+        transform: translateX(-50%);
+        border: 1px solid rgba(198, 167, 106, 0.13);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .event .section-title {
+        color: var(--ivory);
+      }
+
+      .event .section-intro {
+        color: rgba(248, 247, 242, 0.64);
+      }
+
+      .event-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1px;
+        width: min(100%, 760px);
+        margin: 4rem auto 0;
+        border: 1px solid rgba(198, 167, 106, 0.28);
+      }
+
+      .event-item {
+        padding: clamp(1.8rem, 5vw, 3.4rem);
+        text-align: center;
+      }
+
+      .event-item + .event-item {
+        border-left: 1px solid rgba(198, 167, 106, 0.28);
+      }
+
+      .event-item h3 {
+        margin: 0 0 1.3rem;
+        color: var(--gold);
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: 400;
+      }
+
+      .event-date {
+        margin: 0 0 0.9rem;
+        font-family: var(--serif);
+        font-size: 1.6rem;
+      }
+
+      .event-meta {
+        margin: 0.25rem 0;
+        color: rgba(248, 247, 242, 0.7);
+        font-size: 0.77rem;
+      }
+
+      .event-item .button {
+        margin-top: 1.5rem;
+        color: var(--ivory);
+      }
+
+      .event-item .button:hover {
+        background: var(--gold);
+        color: var(--deep-navy);
+      }
+
+      .countdown {
+        background: var(--ivory);
+      }
+
+      .countdown-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        width: min(100%, 620px);
+        margin: 3.3rem auto 0;
+      }
+
+      .countdown-cell {
+        padding: 0.4rem;
+        text-align: center;
+      }
+
+      .countdown-cell + .countdown-cell {
+        border-left: 1px solid var(--line);
+      }
+
+      .countdown-number {
+        display: block;
+        color: var(--navy);
+        font-family: var(--serif);
+        font-size: clamp(2.4rem, 7vw, 4rem);
+        line-height: 1;
+      }
+
+      .countdown-label {
+        display: block;
+        margin-top: 0.7rem;
+        color: var(--muted);
+        font-size: 0.57rem;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+      }
+
+      .countdown-note {
+        margin: 1.6rem 0 0;
+        color: var(--muted);
+        font-size: 0.7rem;
+      }
+
+      .gallery {
+        background: #f0eee7;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr 1fr;
+        grid-template-rows: 190px 190px;
+        gap: 0.8rem;
+        width: min(100%, 930px);
+        margin: 3.8rem auto 0;
+      }
+
+      .gallery-photo {
+        position: relative;
+        overflow: hidden;
+        background: #ddd9ce;
+      }
+
+      .gallery-photo:first-child {
+        grid-row: span 2;
+      }
+
+      .gallery-photo:nth-child(4) {
+        grid-column: span 2;
+      }
+
+      .gallery-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.65);
+        transition:
+          transform 0.7s ease,
+          filter 0.7s ease;
+      }
+
+      .gallery-photo:hover img {
+        transform: scale(1.04);
+        filter: saturate(0.85);
+      }
+
+      .gallery-photo figcaption {
+        position: absolute;
+        right: 0.8rem;
+        bottom: 0.7rem;
+        left: 0.8rem;
+        color: white;
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .gift {
+        background: var(--ivory);
+      }
+
+      .gift-box {
+        width: min(100%, 570px);
+        margin: 3rem auto 0;
+        padding: 2.7rem 1.5rem;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        text-align: center;
+      }
+
+      .gift-icon {
+        width: 52px;
+        height: 52px;
+        margin: 0 auto 1.2rem;
+        color: var(--gold);
+      }
+
+      .gift-bank {
+        margin: 0;
+        color: var(--navy);
+        font-family: var(--serif);
+        font-size: 1.65rem;
+      }
+
+      .gift-account {
+        margin: 0.2rem 0 0;
+        color: var(--slate);
+        font-size: 0.83rem;
+        letter-spacing: 0.08em;
+      }
+
+      .gift-owner {
+        margin: 0.2rem 0 1.4rem;
+        color: var(--muted);
+        font-size: 0.7rem;
+      }
+
+      .rsvp {
+        background: #f0eee7;
+      }
+
+      .rsvp-form {
+        display: grid;
+        gap: 1.2rem;
+        width: min(100%, 600px);
+        margin: 3.5rem auto 0;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .field {
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      .field label {
+        color: var(--navy);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        min-height: 48px;
+        padding: 0.8rem 0.9rem;
+        border: 1px solid rgba(20, 43, 74, 0.2);
+        border-radius: 0;
+        background: rgba(248, 247, 242, 0.68);
+        color: var(--slate);
+        font-size: 0.8rem;
+      }
+
+      .field textarea {
+        min-height: 116px;
+        resize: vertical;
+      }
+
+      .field input::placeholder,
+      .field textarea::placeholder {
+        color: #9a9da0;
+      }
+
+      .form-submit {
+        justify-self: center;
+        margin-top: 0.3rem;
+      }
+
+      .form-status {
+        margin: 0;
+        color: var(--navy);
+        font-size: 0.75rem;
+        text-align: center;
+      }
+
+      .wishes-list {
+        display: grid;
+        gap: 0.9rem;
+        width: min(100%, 600px);
+        margin: 2.5rem auto 0;
+        text-align: left;
+      }
+
+      .wish {
+        padding: 1rem 1.15rem;
+        border-left: 2px solid var(--gold);
+        background: rgba(248, 247, 242, 0.6);
+      }
+
+      .wish strong {
+        color: var(--navy);
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      .wish p {
+        margin: 0.25rem 0 0;
+        color: var(--muted);
+        font-size: 0.77rem;
+      }
+
+      .closing {
+        position: relative;
+        overflow: hidden;
+        padding: 7.5rem 1.5rem 5rem;
+        background:
+          radial-gradient(ellipse at 50% 110%, rgba(198, 167, 106, 0.2), transparent 45%),
+          var(--deep-navy);
+        color: var(--ivory);
+        text-align: center;
+      }
+
+      .closing-art {
+        width: min(100%, 190px);
+        margin: 0 auto 1.3rem;
+      }
+
+      .closing .eyebrow {
+        margin-bottom: 0.8rem;
+      }
+
+      .closing-title {
+        margin: 0;
+        color: var(--ivory);
+        font-family: var(--serif);
+        font-size: clamp(2.8rem, 7vw, 4.7rem);
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .closing-copy {
+        max-width: 31rem;
+        margin: 1.25rem auto 2rem;
+        color: rgba(248, 247, 242, 0.67);
+        font-size: 0.8rem;
+      }
+
+      .closing-names {
+        color: var(--gold);
+        font-family: var(--serif);
+        font-size: 1.5rem;
+      }
+
+      .footer {
+        padding: 1.4rem;
+        background: var(--deep-navy);
+        color: rgba(248, 247, 242, 0.42);
+        font-size: 0.62rem;
+        letter-spacing: 0.1em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .toast {
+        position: fixed;
+        z-index: 30;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: calc(100vw - 2rem);
+        padding: 0.85rem 1.1rem;
+        background: var(--deep-navy);
+        color: var(--ivory);
+        font-size: 0.76rem;
+        box-shadow: 0 8px 28px rgba(11, 27, 48, 0.2);
+        animation: toast-in 0.25s ease-out;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-7px);
+        }
+      }
+
+      @keyframes portrait-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      @keyframes toast-in {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 680px) {
+        .section {
+          padding: 5.2rem 1.25rem;
+        }
+
+        .opening {
+          padding-top: 6rem;
+          padding-bottom: 6rem;
+        }
+
+        .couple-grid {
+          gap: 2.2rem 1rem;
+          margin-top: 3.1rem;
+        }
+
+        .portrait-wrap {
+          width: min(100%, 220px);
+          margin-bottom: 1.4rem;
+        }
+
+        .event-grid {
+          grid-template-columns: 1fr;
+          margin-top: 3rem;
+        }
+
+        .event-item + .event-item {
+          border-top: 1px solid rgba(198, 167, 106, 0.28);
+          border-left: 0;
+        }
+
+        .gallery-grid {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 230px 150px 150px;
+          gap: 0.55rem;
+          margin-top: 2.8rem;
+        }
+
+        .gallery-photo:first-child {
+          grid-column: span 2;
+          grid-row: auto;
+        }
+
+        .gallery-photo:nth-child(4) {
+          grid-column: span 2;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .closing {
+          padding-top: 6rem;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .cover h1 {
+          font-size: 2.8rem;
+        }
+
+        .couple-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .person + .person {
+          margin-top: 1.5rem;
+        }
+
+        .countdown-label {
+          font-size: 0.5rem;
+          letter-spacing: 0.11em;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="locked">
+    <div id="app">
+      <section class="cover" :class="{ 'is-open': isOpen }" aria-label="Sampul undangan">
+        <div class="cover-inner">
+          <p class="cover-kicker">The Wedding Of</p>
+          <h1>
+            <span>Muhamad Faishal</span>
+            <span>Azizi</span>
+            <span class="cover-ampersand">&amp;</span>
+            <span>Widi Siti Alivah</span>
+          </h1>
+          <p class="cover-date">Sabtu, 26 Desember 2026</p>
+          <svg class="cover-art" viewBox="0 0 220 140" role="img" aria-label="Ilustrasi cincin pernikahan">
+            <defs>
+              <linearGradient id="ringGold" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f0dcad" />
+                <stop offset=".48" stop-color="#c6a76a" />
+                <stop offset="1" stop-color="#8e7140" />
+              </linearGradient>
+              <linearGradient id="ringSilver" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#fffdf5" />
+                <stop offset=".52" stop-color="#c9c8c0" />
+                <stop offset="1" stop-color="#f4ead1" />
+              </linearGradient>
+              <radialGradient id="gem" cx="30%" cy="25%">
+                <stop offset="0" stop-color="#fff" />
+                <stop offset=".55" stop-color="#dbe8ed" />
+                <stop offset="1" stop-color="#9daeb4" />
+              </radialGradient>
+            </defs>
+            <ellipse cx="92" cy="82" rx="45" ry="27" transform="rotate(-28 92 82)" fill="none" stroke="url(#ringGold)" stroke-width="9" />
+            <ellipse cx="132" cy="76" rx="44" ry="27" transform="rotate(27 132 76)" fill="none" stroke="url(#ringSilver)" stroke-width="8" />
+            <path d="M142 39l7 10 12 2-8 9 2 12-11-6-11 6 2-12-8-9 12-2z" fill="url(#gem)" stroke="#f8f7f2" stroke-width="1.5" />
+            <path d="M149 50l-5 9m5-9 7 9m-7-9 12 1" stroke="#fff" stroke-width="1" opacity=".8" />
+            <circle cx="49" cy="42" r="1.5" fill="#c6a76a" />
+            <circle cx="177" cy="105" r="1.5" fill="#c6a76a" />
+            <circle cx="65" cy="111" r="1" fill="#f8f7f2" opacity=".8" />
+          </svg>
+          <p class="cover-caption">Dengan penuh kebahagiaan, kami mengundang Anda</p>
+          <button class="button button-gold" type="button" @click="openInvitation">
+            Buka Undangan <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+
+      <main>
+        <section class="section opening center" id="pembuka">
+          <div class="section-inner reveal">
+            <p class="eyebrow">Assalamu’alaikum warahmatullahi wabarakatuh</p>
+            <h2 class="section-title">Dengan memohon rahmat dan ridha Allah</h2>
+            <div class="ornament" aria-hidden="true"><span>✦</span></div>
+            <p class="opening-copy">
+              Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan
+              menjadi bagian dari hari bahagia kami.
+            </p>
+            <span class="script-accent">Sebuah awal cerita</span>
+            <blockquote class="verse">
+              “Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan
+              untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya.”
+              <cite>QS. Ar-Rum: 21</cite>
+            </blockquote>
+            <p class="opening-copy" style="margin-top: 2.2rem">
+              Muhamad Faishal Azizi <span style="color: var(--gold)">&amp;</span> Widi Siti Alivah
+            </p>
+          </div>
+        </section>
+
+        <section class="section couple center" id="mempelai">
+          <div class="section-inner">
+            <p class="eyebrow reveal">Dua hati, satu tujuan</p>
+            <h2 class="section-title reveal">Mempelai</h2>
+            <p class="section-intro reveal">
+              Dengan penuh rasa bahagia, izinkan kami memperkenalkan kedua mempelai.
+            </p>
+            <div class="couple-grid">
+              <article class="person reveal">
+                <div class="portrait-wrap">
+                  <svg class="portrait-art" viewBox="0 0 300 360" role="img" aria-label="Ilustrasi mempelai pria Muslim">
+                    <defs>
+                      <linearGradient id="groom-backdrop" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#e8e4d8" />
+                        <stop offset="1" stop-color="#d5d4cb" />
+                      </linearGradient>
+                      <linearGradient id="groom-robe" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#6f89a5" />
+                        <stop offset=".58" stop-color="#29486a" />
+                        <stop offset="1" stop-color="#0b1b30" />
+                      </linearGradient>
+                      <linearGradient id="groom-face" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#e8c3a5" />
+                        <stop offset="1" stop-color="#c99472" />
+                      </linearGradient>
+                    </defs>
+                    <path fill="url(#groom-backdrop)" d="M0 0h300v360H0z" />
+                    <path fill="#c6a76a" opacity=".22" d="M34 0h1v360h-1zm230 0h1v360h-1z" />
+                    <path d="m150 40 111 64-111 64-111-64 111-64Z" fill="#f3f0e7" opacity=".6" />
+                    <path d="m150 40 111 64-111 64-111-64 111-64Zm0 0v128m-111-64 111 64 111-64" fill="none" stroke="#142b4a" stroke-width="1" opacity=".12" />
+                    <path d="m150 274 123 49-123 36-123-36 123-49Z" fill="#8a9aab" opacity=".22" />
+                    <g class="portrait-character">
+                      <path d="M67 350c5-67 31-105 83-105s78 38 83 105H67Z" fill="#0b1b30" />
+                      <path d="M67 350c5-67 31-105 83-105v105H67Z" fill="#142b4a" />
+                      <path d="M150 245c52 0 78 38 83 105h-83V245Z" fill="url(#groom-robe)" />
+                      <path d="m124 246 26 34 26-34" fill="#dbe2e8" stroke="#c6a76a" stroke-width="2" />
+                      <path d="m143 279 7 11 7-11-7-8-7 8Z" fill="#c6a76a" />
+                      <path d="M136 195h28v48c-8 9-20 9-28 0v-48Z" fill="url(#groom-face)" />
+                      <path d="M105 121c0-38 19-64 45-64s45 26 45 64v54c0 31-20 54-45 54s-45-23-45-54v-54Z" fill="url(#groom-face)" />
+                      <path d="M103 130c-2-42 17-70 48-70 29 0 46 23 49 59-13-5-22-15-28-29-15 17-39 27-68 24v16Z" fill="#172334" />
+                      <path d="M117 93c12-17 27-25 46-26-8 9-20 17-37 23" fill="none" stroke="#647083" stroke-linecap="round" stroke-width="3" opacity=".6" />
+                      <path d="M119 146c6-4 12-4 18 0m26 0c6-4 12-4 18 0" fill="none" stroke="#4e382f" stroke-linecap="round" stroke-width="2.4" />
+                      <ellipse cx="129" cy="157" rx="2.5" ry="3" fill="#29384a" />
+                      <ellipse cx="171" cy="157" rx="2.5" ry="3" fill="#29384a" />
+                      <path d="M150 158v17m-9 10c6 4 12 4 18 0" fill="none" stroke="#9c674f" stroke-linecap="round" stroke-width="2" />
+                      <path d="M107 166c-6-4-10 1-8 10 2 7 6 11 10 10m91-20c6-4 10 1 8 10-2 7-6 11-10 10" fill="url(#groom-face)" />
+                    </g>
+                  </svg>
+                </div>
+                <p class="eyebrow">Mempelai pria</p>
+                <h3 class="person-name">Muhamad Faishal Azizi</h3>
+                <p class="person-bio">Informasi keluarga akan diinformasikan.</p>
+              </article>
+              <article class="person reveal">
+                <div class="portrait-wrap">
+                  <svg class="portrait-art" viewBox="0 0 300 360" role="img" aria-label="Ilustrasi mempelai wanita Muslim">
+                    <defs>
+                      <linearGradient id="bride-backdrop" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#e7e2d7" />
+                        <stop offset="1" stop-color="#d3d4ce" />
+                      </linearGradient>
+                      <linearGradient id="bride-hijab" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#e4ebf1" />
+                        <stop offset=".58" stop-color="#9aadc1" />
+                        <stop offset="1" stop-color="#3b5878" />
+                      </linearGradient>
+                      <linearGradient id="bride-dress" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#7891ad" />
+                        <stop offset=".58" stop-color="#29486a" />
+                        <stop offset="1" stop-color="#0b1b30" />
+                      </linearGradient>
+                      <linearGradient id="bride-face" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#f0cbb0" />
+                        <stop offset="1" stop-color="#cf9e80" />
+                      </linearGradient>
+                    </defs>
+                    <path fill="url(#bride-backdrop)" d="M0 0h300v360H0z" />
+                    <path fill="#c6a76a" opacity=".22" d="M34 0h1v360h-1zm230 0h1v360h-1z" />
+                    <path d="m150 40 111 64-111 64-111-64 111-64Z" fill="#f3f0e7" opacity=".6" />
+                    <path d="m150 40 111 64-111 64-111-64 111-64Zm0 0v128m-111-64 111 64 111-64" fill="none" stroke="#142b4a" stroke-width="1" opacity=".12" />
+                    <path d="m150 274 123 49-123 36-123-36 123-49Z" fill="#8a9aab" opacity=".22" />
+                    <g class="portrait-character">
+                      <path d="M61 350c7-71 33-106 89-106s82 35 89 106H61Z" fill="#0b1b30" />
+                      <path d="M61 350c7-71 33-106 89-106v106H61Z" fill="#142b4a" />
+                      <path d="M150 244c56 0 82 35 89 106h-89V244Z" fill="url(#bride-dress)" />
+                      <path d="m119 247 31 35 31-35" fill="#dbe5ed" stroke="#c6a76a" stroke-width="2" />
+                      <path d="M137 197h26v47c-7 8-19 8-26 0v-47Z" fill="url(#bride-face)" />
+                      <path d="M91 130c0-49 24-83 59-83s59 34 59 83v56c0 45-23 74-59 74s-59-29-59-74v-56Z" fill="url(#bride-hijab)" />
+                      <path d="M112 129c0-30 15-51 38-51s38 21 38 51v45c0 28-14 48-38 48s-38-20-38-48v-45Z" fill="url(#bride-face)" />
+                      <path d="M89 133c3-51 25-86 61-86 37 0 59 35 61 86-8-19-19-32-31-40-13 12-30 18-49 18-14 0-28-4-42-13v35Z" fill="url(#bride-hijab)" />
+                      <path d="M116 152c5-4 11-4 16 0m36 0c5-4 11-4 16 0" fill="none" stroke="#6b4c42" stroke-linecap="round" stroke-width="2" />
+                      <ellipse cx="126" cy="163" rx="2.5" ry="3" fill="#29384a" />
+                      <ellipse cx="174" cy="163" rx="2.5" ry="3" fill="#29384a" />
+                      <path d="M150 163v17m-8 9c5 4 11 4 16 0" fill="none" stroke="#a36f5a" stroke-linecap="round" stroke-width="2" />
+                      <path d="M109 251c10 10 24 16 41 16s31-6 41-16" fill="none" stroke="#c6a76a" stroke-width="1.5" opacity=".8" />
+                    </g>
+                  </svg>
+                </div>
+                <p class="eyebrow">Mempelai wanita</p>
+                <h3 class="person-name">Widi Siti Alivah</h3>
+                <p class="person-bio">Informasi keluarga akan diinformasikan.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section event center" id="acara">
+          <div class="section-inner">
+            <p class="eyebrow reveal">Hari istimewa kami</p>
+            <h2 class="section-title reveal">Rangkaian Acara</h2>
+            <p class="section-intro reveal">
+              Merupakan suatu kehormatan bagi kami apabila Anda berkenan hadir dan memberikan doa restu.
+            </p>
+            <div class="event-grid reveal">
+              <article class="event-item">
+                <h3>Akad Nikah</h3>
+                <p class="event-date">Sabtu, 26 Desember 2026</p>
+                <p class="event-meta">Waktu akan diinformasikan</p>
+                <p class="event-meta">Masjid Istiqamah, Bandung</p>
+                <a class="button" :href="mapsUrl" target="_blank" rel="noreferrer">Buka Google Maps ↗</a>
+              </article>
+              <article class="event-item">
+                <h3>Resepsi</h3>
+                <p class="event-date">Sabtu, 26 Desember 2026</p>
+                <p class="event-meta">Waktu akan diinformasikan</p>
+                <p class="event-meta">Masjid Istiqamah, Bandung</p>
+                <a class="button" :href="mapsUrl" target="_blank" rel="noreferrer">Buka Google Maps ↗</a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section countdown center">
+          <div class="section-inner reveal">
+            <p class="eyebrow">Menuju hari bahagia</p>
+            <h2 class="section-title">Menghitung Hari</h2>
+            <div class="countdown-grid" role="timer" aria-live="off">
+              <div v-for="unit in countdownUnits" :key="unit.label" class="countdown-cell">
+                <span class="countdown-number">{{ unit.value }}</span>
+                <span class="countdown-label">{{ unit.label }}</span>
+              </div>
+            </div>
+            <p class="countdown-note">{{ countdownMessage }}</p>
+          </div>
+        </section>
+
+        <section class="section gallery center" id="galeri">
+          <div class="section-inner">
+            <p class="eyebrow reveal">Cerita dalam bingkai</p>
+            <h2 class="section-title reveal">Galeri</h2>
+            <p class="section-intro reveal">Beberapa momen indah untuk merayakan perjalanan menuju hari istimewa.</p>
+            <div class="gallery-grid">
+              <figure v-for="photo in gallery" :key="photo.alt" class="gallery-photo reveal">
+                <img :src="photo.src" :alt="photo.alt" loading="lazy" />
+                <figcaption>{{ photo.caption }}</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="section gift center" id="hadiah">
+          <div class="section-inner reveal">
+            <p class="eyebrow">Tanda kasih</p>
+            <h2 class="section-title">Wedding Gift</h2>
+            <p class="section-intro">
+              Doa dan kehadiran Anda merupakan hadiah terindah bagi kami. Namun, apabila berkenan,
+              tanda kasih dapat disampaikan melalui informasi berikut.
+            </p>
+            <div class="gift-box">
+              <svg class="gift-icon" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+                <rect x="7" y="20" width="38" height="25" stroke="currentColor" />
+                <path d="M5 15h42v8H5zM26 15v30M26 15c-10 0-13-3-13-7 0-5 8-5 13 7Zm0 0c10 0 13-3 13-7 0-5-8-5-13 7Z" stroke="currentColor" />
+              </svg>
+              <p class="gift-bank">Informasi rekening</p>
+              <p class="gift-account">{{ accountNumber }}</p>
+              <p class="gift-owner">Atas nama —</p>
+              <button class="button button-outline" type="button" @click="copyAccount">
+                Salin nomor rekening
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section rsvp center" id="rsvp">
+          <div class="section-inner">
+            <p class="eyebrow reveal">Kehadiran Anda berarti bagi kami</p>
+            <h2 class="section-title reveal">RSVP &amp; Ucapan</h2>
+            <p class="section-intro reveal">
+              Mohon isi konfirmasi kehadiran dan sampaikan doa terbaik untuk kami.
+            </p>
+            <form class="rsvp-form reveal" @submit.prevent="submitRsvp">
+              <div class="field">
+                <label for="guest-name">Nama tamu</label>
+                <input id="guest-name" v-model.trim="form.name" name="name" autocomplete="name" placeholder="Tuliskan nama Anda" required />
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="attendance">Konfirmasi kehadiran</label>
+                  <select id="attendance" v-model="form.attendance" name="attendance" required>
+                    <option disabled value="">Pilih konfirmasi</option>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Belum dapat hadir">Belum dapat hadir</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="guest-count">Jumlah kehadiran</label>
+                  <select id="guest-count" v-model="form.count" name="count" required>
+                    <option disabled value="">Pilih jumlah</option>
+                    <option value="0">0 orang</option>
+                    <option value="1">1 orang</option>
+                    <option value="2">2 orang</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="guest-wish">Ucapan &amp; doa</label>
+                <textarea id="guest-wish" v-model.trim="form.wish" name="wish" placeholder="Tuliskan ucapan dan doa untuk kedua mempelai" required></textarea>
+              </div>
+              <button class="button button-outline form-submit" type="submit">Kirim konfirmasi</button>
+              <p v-if="formStatus" class="form-status" role="status">{{ formStatus }}</p>
+            </form>
+            <div v-if="wishes.length" class="wishes-list" aria-live="polite">
+              <article v-for="(wish, index) in wishes" :key="index" class="wish">
+                <strong>{{ wish.name }}</strong>
+                <p>{{ wish.attendance }} · {{ wish.count }} orang</p>
+                <p>{{ wish.message }}</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="closing">
+          <svg class="closing-art" viewBox="0 0 200 120" fill="none" role="img" aria-label="Ilustrasi bunga putih">
+            <g stroke="#c6a76a" stroke-width="1.3" opacity=".9">
+              <path d="M100 108C95 83 92 58 99 30M99 77c-18-15-30-14-38-11 9 13 21 18 38 16M97 92c16-16 29-19 41-15-8 14-22 21-40 20" />
+              <path d="M54 108c0-16 5-31 16-44m77 44c-3-17-10-30-23-40" />
+            </g>
+            <g fill="#f8f7f2" stroke="#c6a76a" stroke-width="1">
+              <ellipse cx="99" cy="25" rx="7" ry="13" />
+              <ellipse cx="99" cy="25" rx="7" ry="13" transform="rotate(60 99 25)" />
+              <ellipse cx="99" cy="25" rx="7" ry="13" transform="rotate(120 99 25)" />
+              <circle cx="99" cy="25" r="4" fill="#c6a76a" />
+              <ellipse cx="67" cy="58" rx="6" ry="11" transform="rotate(-25 67 58)" />
+              <ellipse cx="67" cy="58" rx="6" ry="11" transform="rotate(35 67 58)" />
+              <ellipse cx="67" cy="58" rx="6" ry="11" transform="rotate(95 67 58)" />
+              <circle cx="67" cy="58" r="3" fill="#c6a76a" />
+              <ellipse cx="145" cy="61" rx="6" ry="11" transform="rotate(20 145 61)" />
+              <ellipse cx="145" cy="61" rx="6" ry="11" transform="rotate(80 145 61)" />
+              <ellipse cx="145" cy="61" rx="6" ry="11" transform="rotate(140 145 61)" />
+              <circle cx="145" cy="61" r="3" fill="#c6a76a" />
+            </g>
+          </svg>
+          <p class="eyebrow">Terima kasih</p>
+          <h2 class="closing-title">Sampai Jumpa</h2>
+          <p class="closing-copy">
+            Merupakan kebahagiaan bagi kami atas doa, perhatian, dan kehadiran Anda di hari istimewa ini.
+          </p>
+          <p class="closing-names">Muhamad Faishal Azizi &amp; Widi Siti Alivah</p>
+        </section>
+        <footer class="footer">Dengan cinta · Muhamad Faishal Azizi &amp; Widi Siti Alivah</footer>
+      </main>
+
+      <div v-if="toast" class="toast" role="status">{{ toast }}</div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            isOpen: false,
+            eventDate: new Date("2026-12-26T00:00:00+07:00"),
+            now: Date.now(),
+            countdownTimer: null,
+            toast: "",
+            toastTimer: null,
+            formStatus: "",
+            form: {
+              name: "",
+              attendance: "",
+              count: "",
+              wish: "",
+            },
+            wishes: [],
+            accountNumber: "Nomor rekening akan diinformasikan",
+            mapsUrl: "https://www.google.com/maps/search/?api=1&query=Masjid%20Istiqamah%2C%20Bandung",
+            gallery: [
+              {
+                src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1100&q=80",
+                alt: "Dekorasi pernikahan bernuansa putih",
+                caption: "Hari yang dinanti",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80",
+                alt: "Momen pernikahan yang hangat",
+                caption: "Sebuah janji",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80",
+                alt: "Rangkaian bunga putih",
+                caption: "Dalam doa",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1100&q=80",
+                alt: "Suasana perayaan pernikahan",
+                caption: "Bersama selamanya",
+              },
+            ],
+          };
+        },
+        computed: {
+          countdownUnits() {
+            if (!this.eventDate) {
+              return [
+                { label: "Hari", value: "--" },
+                { label: "Jam", value: "--" },
+                { label: "Menit", value: "--" },
+                { label: "Detik", value: "--" },
+              ];
+            }
+
+            const distance = Math.max(0, this.eventDate.getTime() - this.now);
+            return [
+              { label: "Hari", value: String(Math.floor(distance / 86400000)).padStart(2, "0") },
+              { label: "Jam", value: String(Math.floor((distance % 86400000) / 3600000)).padStart(2, "0") },
+              { label: "Menit", value: String(Math.floor((distance % 3600000) / 60000)).padStart(2, "0") },
+              { label: "Detik", value: String(Math.floor((distance % 60000) / 1000)).padStart(2, "0") },
+            ];
+          },
+          countdownMessage() {
+            if (!this.eventDate) {
+              return "Tanggal pernikahan akan diinformasikan.";
+            }
+            return this.eventDate.getTime() <= this.now
+              ? "Hari bahagia kami telah tiba."
+              : "Dengan penuh sukacita kami menantikan hari istimewa.";
+          },
+        },
+        mounted() {
+          document.body.classList.add("locked");
+          this.countdownTimer = window.setInterval(() => {
+            this.now = Date.now();
+          }, 1000);
+          this.$nextTick(() => this.observeSections());
+        },
+        beforeUnmount() {
+          window.clearInterval(this.countdownTimer);
+          window.clearTimeout(this.toastTimer);
+        },
+        methods: {
+          openInvitation() {
+            this.isOpen = true;
+            document.body.classList.remove("locked");
+            window.setTimeout(() => {
+              document.querySelector("#pembuka")?.scrollIntoView({ behavior: "smooth" });
+            }, 120);
+          },
+          observeSections() {
+            if (!("IntersectionObserver" in window)) {
+              document.querySelectorAll(".reveal").forEach((item) => item.classList.add("visible"));
+              return;
+            }
+            const observer = new IntersectionObserver(
+              (entries, currentObserver) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    currentObserver.unobserve(entry.target);
+                  }
+                });
+              },
+              { threshold: 0.12 },
+            );
+            document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
+          },
+          showToast(message) {
+            this.toast = message;
+            window.clearTimeout(this.toastTimer);
+            this.toastTimer = window.setTimeout(() => {
+              this.toast = "";
+            }, 3200);
+          },
+          async copyAccount() {
+            if (this.accountNumber === "Nomor rekening akan diinformasikan") {
+              this.showToast("Informasi rekening akan ditambahkan setelah tersedia.");
+              return;
+            }
+            try {
+              await navigator.clipboard.writeText(this.accountNumber);
+              this.showToast("Nomor rekening berhasil disalin.");
+            } catch (error) {
+              this.showToast("Nomor rekening tidak dapat disalin. Silakan salin secara manual.");
+            }
+          },
+          submitRsvp() {
+            const name = this.form.name.trim();
+            const message = this.form.wish.trim();
+            if (!name || !message || !this.form.attendance || !this.form.count) {
+              this.formStatus = "Mohon lengkapi semua kolom terlebih dahulu.";
+              return;
+            }
+            this.wishes.unshift({
+              name,
+              attendance: this.form.attendance,
+              count: this.form.count,
+              message,
+            });
+            this.formStatus = "Terima kasih! Konfirmasi tampil pada sesi ini dan belum dikirim ke penyelenggara.";
+            this.form = { name: "", attendance: "", count: "", wish: "" };
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
