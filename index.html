@@ -1015,6 +1015,50 @@
         clip-path: inset(50%);
       }
 
+      .studio-input-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .studio-camera-toggle {
+        min-height: 40px;
+        padding: 0.55rem 0.8rem;
+        font-size: 0.58rem;
+      }
+
+      .studio-camera {
+        display: grid;
+        gap: 0.7rem;
+        margin-top: 0.9rem;
+        padding: 0.7rem;
+        border: 1px solid var(--line);
+        background: #eeece5;
+      }
+
+      .studio-camera video {
+        display: block;
+        width: min(100%, 360px);
+        max-height: 280px;
+        margin: 0 auto;
+        background: var(--deep-navy);
+        object-fit: cover;
+      }
+
+      .studio-camera-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6rem;
+      }
+
+      .studio-camera-actions .button {
+        min-height: 38px;
+        padding: 0.55rem 0.8rem;
+        font-size: 0.57rem;
+      }
+
       .studio-status {
         min-height: 1.25rem;
         margin: 0.8rem 0 0 !important;
@@ -1628,10 +1672,31 @@
                   <span>{{ photo.caption }}</span>
                 </button>
               </div>
-              <label class="studio-upload">
-                + Unggah foto (maks. 3)
-                <input type="file" accept="image/*" multiple @change="handleStudioUpload" />
-              </label>
+              <div class="studio-input-actions">
+                <label class="studio-upload">
+                  + Unggah foto (maks. 3)
+                  <input type="file" accept="image/*" multiple @change="handleStudioUpload" />
+                </label>
+                <button
+                  v-if="!cameraOpen"
+                  class="button button-outline studio-camera-toggle"
+                  type="button"
+                  @click="openCamera"
+                >
+                  Ambil dari kamera
+                </button>
+              </div>
+              <div v-if="cameraOpen" class="studio-camera">
+                <video ref="cameraVideo" autoplay playsinline muted aria-label="Pratinjau kamera"></video>
+                <div class="studio-camera-actions">
+                  <button class="button button-gold" type="button" @click="captureCameraPhoto">
+                    Ambil foto
+                  </button>
+                  <button class="button button-outline" type="button" @click="closeCamera">
+                    Tutup kamera
+                  </button>
+                </div>
+              </div>
               <p class="studio-status" role="status">{{ storyStatus }}</p>
               <div class="studio-actions">
                 <button
@@ -1678,6 +1743,8 @@
             toast: "",
             toastTimer: null,
             studioOpen: false,
+            cameraOpen: false,
+            cameraStream: null,
             storyReady: false,
             storyRendering: false,
             storyStatus: "",
@@ -1767,6 +1834,7 @@
         beforeUnmount() {
           window.clearInterval(this.countdownTimer);
           window.clearTimeout(this.toastTimer);
+          this.stopCamera();
           this.uploadedImages.forEach((photo) => URL.revokeObjectURL(photo.src));
         },
         methods: {
@@ -1781,10 +1849,136 @@
             });
           },
           closeStoryStudio() {
+            this.stopCamera();
             this.studioOpen = false;
             this.storyReady = false;
             this.storyRenderId += 1;
             document.body.classList.remove("locked");
+          },
+          async openCamera() {
+            if (!navigator.mediaDevices?.getUserMedia) {
+              this.storyStatus = "Kamera tidak tersedia. Buka halaman melalui HTTPS atau browser yang mendukung kamera.";
+              return;
+            }
+            if (this.cameraOpen || this.cameraStream) {
+              return;
+            }
+
+            this.storyStatus = "Meminta izin kamera…";
+            try {
+              const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: { ideal: "environment" } },
+                audio: false,
+              });
+              if (!this.studioOpen) {
+                stream.getTracks().forEach((track) => track.stop());
+                return;
+              }
+              this.cameraStream = stream;
+              this.cameraOpen = true;
+              await this.$nextTick();
+              const video = this.$refs.cameraVideo;
+              if (!video) {
+                throw new Error("Pratinjau kamera tidak dapat disiapkan.");
+              }
+              video.srcObject = stream;
+              await video.play();
+              this.storyStatus = "Kamera aktif. Tekan Ambil foto untuk menambahkan foto ke kolase.";
+            } catch (error) {
+              this.stopCamera();
+              console.error("Tidak dapat membuka kamera untuk Studio Story.", error);
+              const errorName = error instanceof Error ? error.name : "";
+              if (errorName === "NotAllowedError" || errorName === "PermissionDeniedError") {
+                this.storyStatus = "Izin kamera ditolak. Aktifkan izin kamera di browser lalu coba lagi.";
+              } else if (errorName === "NotFoundError" || errorName === "DevicesNotFoundError") {
+                this.storyStatus = "Kamera tidak ditemukan pada perangkat ini.";
+              } else if (errorName === "NotReadableError" || errorName === "TrackStartError") {
+                this.storyStatus = "Kamera sedang digunakan aplikasi lain.";
+              } else {
+                this.storyStatus = "Kamera gagal dibuka. Pastikan izin aktif dan halaman menggunakan HTTPS.";
+              }
+            }
+          },
+          stopCamera() {
+            if (this.cameraStream) {
+              this.cameraStream.getTracks().forEach((track) => track.stop());
+            }
+            this.cameraStream = null;
+            if (this.$refs.cameraVideo) {
+              this.$refs.cameraVideo.srcObject = null;
+            }
+            this.cameraOpen = false;
+          },
+          closeCamera() {
+            this.stopCamera();
+            this.storyStatus = "Kamera ditutup. Foto yang sudah diambil tetap tersedia.";
+          },
+          async captureCameraPhoto() {
+            const video = this.$refs.cameraVideo;
+            if (!this.cameraStream || !video?.videoWidth || video.readyState < 2) {
+              this.storyStatus = "Kamera belum siap. Tunggu pratinjau muncul lalu coba lagi.";
+              return;
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext("2d");
+            if (!context) {
+              this.storyStatus = "Foto tidak dapat diambil karena canvas tidak tersedia.";
+              return;
+            }
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            try {
+              const blob = await new Promise((resolve, reject) => {
+                canvas.toBlob((result) => {
+                  if (result) {
+                    resolve(result);
+                  } else {
+                    reject(new Error("Foto kamera tidak dapat diproses."));
+                  }
+                }, "image/jpeg", 0.92);
+              });
+              const photo = {
+                id: `camera-${Date.now()}`,
+                src: URL.createObjectURL(blob),
+                caption: "Foto dari kamera",
+                source: "camera",
+              };
+              const cameraIds = this.uploadedImages
+                .filter((image) => image.source === "camera")
+                .map((image) => image.id);
+              const keptCameraIds = this.studioImageCount > 1
+                ? this.studioSelection
+                  .filter((id) => cameraIds.includes(id))
+                  .slice(-(this.studioImageCount - 1))
+                : [];
+              const otherSelection = this.studioSelection.filter((id) => !cameraIds.includes(id));
+              const otherSlots = Math.max(0, this.studioImageCount - keptCameraIds.length - 1);
+              const nextSelection = [
+                ...otherSelection.slice(0, otherSlots),
+                ...keptCameraIds,
+                photo.id,
+              ];
+              const retainedCameraIds = new Set([...keptCameraIds, photo.id]);
+              this.uploadedImages = this.uploadedImages.filter((image) => {
+                if (image.source !== "camera" || retainedCameraIds.has(image.id)) {
+                  return true;
+                }
+                URL.revokeObjectURL(image.src);
+                return false;
+              });
+              this.uploadedImages.push(photo);
+              this.studioSelection = nextSelection;
+              this.storyReady = false;
+              this.renderStory();
+            } catch (error) {
+              console.error("Tidak dapat memproses foto dari kamera.", error);
+              this.storyStatus = error instanceof Error
+                ? error.message
+                : "Foto kamera tidak dapat diproses.";
+            }
           },
           toggleStudioPhoto(id) {
             const selectedIndex = this.studioSelection.indexOf(id);
@@ -1832,6 +2026,7 @@
               id: `upload-${Date.now()}-${index}`,
               src: URL.createObjectURL(file),
               caption: file.name || `Foto unggahan ${index + 1}`,
+              source: "upload",
             }));
             this.studioImageCount = files.length;
             this.studioSelection = this.uploadedImages.map((photo) => photo.id);
