@@ -109,6 +109,10 @@
           @apply m-0 font-serif text-[clamp(2.6rem,6vw,4.2rem)] font-normal leading-[.98] text-navy;
         }
 
+        .opening-title {
+          @apply text-[clamp(1.85rem,4.2vw,2.7rem)];
+        }
+
         .section-intro {
           @apply mx-auto mt-4 max-w-[32rem] text-[.95rem] leading-relaxed text-muted;
         }
@@ -309,7 +313,7 @@
         }
 
         .person-bio {
-          @apply mx-auto mt-4 max-w-[18rem] text-[.75rem] text-muted;
+          @apply mx-auto mt-4 max-w-[18rem] text-[.75rem] leading-[1.9] text-muted;
         }
 
         .event {
@@ -354,6 +358,10 @@
 
         .event-meta {
           @apply my-1 text-[.77rem] text-ivory/70;
+        }
+
+        .event-address {
+          @apply text-[.95rem] leading-relaxed text-ivory/85;
         }
 
         .event-item .button {
@@ -426,6 +434,14 @@
         .gallery-photo figcaption {
           @apply absolute inset-x-3 bottom-3 z-[1] font-serif text-lg text-white;
           text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .person-bio strong {
+          @apply font-semibold text-navy;
+        }
+
+        .person-address {
+          @apply mt-2.5 block;
         }
 
         .gift-box {
@@ -994,13 +1010,12 @@
       <section class="section opening center" id="pembuka">
         <div class="section-inner reveal">
           <p class="arabic-greeting" lang="ar" dir="rtl">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ</p>
-          <h2 class="section-title">Dengan memohon rahmat dan ridha Allah</h2>
+          <h2 class="section-title opening-title">Dengan memohon rahmat dan ridha Allah</h2>
           <div class="ornament" aria-hidden="true"><span>✦</span></div>
           <p class="opening-copy">
             Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan
             menjadi bagian dari hari bahagia kami.
           </p>
-          <span class="script-accent">Sebuah awal cerita</span>
           <blockquote class="verse">
             “Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan
             untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya.”
@@ -1070,8 +1085,9 @@
               </div>
               <p class="eyebrow">Mempelai pria</p>
               <h3 class="person-name">Muhamad Faishal Azizi</h3>
-              <p class="person-bio">Putra kedua dari Bapak Tobroni, M.Pd.I &amp; Ibu Gali Yudawati, S.Pd<br />Kp.
-                Babakan Pringan, RT 02/RW 05, Kel. Tagogapu, Kec. Padalarang</p>
+              <p class="person-bio">Putra kedua dari Bapak <strong>Tobroni, M.Pd.I</strong> &amp; Ibu <strong>Gali
+                  Yudawati, S.Pd</strong><span class="person-address">Kp.
+                  Babakan Pringan, RT 02/RW 05, Kel. Tagogapu, Kec. Padalarang</span></p>
             </article>
             <article class="person reveal">
               <div class="portrait-wrap">
@@ -1129,8 +1145,9 @@
               </div>
               <p class="eyebrow">Mempelai wanita</p>
               <h3 class="person-name">Widi Siti Alivah, S.Pd.</h3>
-              <p class="person-bio">Putri keempat (bungsu) dari Bapak Sutaryo (Alm) &amp; Ibu Lasmini<br />Kp. Cikutra
-                Dalam No. 10, RT 09/RW 02, Kel. Neglasari, Kec. Cibeunying Kaler</p>
+              <p class="person-bio">Putri keempat (bungsu) dari Bapak <strong>Sutaryo (Alm)</strong> &amp; Ibu
+                <strong>Lasmini</strong><span class="person-address">Kp. Cikutra
+                  Dalam No. 10, RT 09/RW 02, Kel. Neglasari, Kec. Cibeunying Kaler</span></p>
             </article>
           </div>
         </div>
@@ -1148,13 +1165,15 @@
               <h3>Akad Nikah</h3>
               <p class="event-date">Sabtu, 26 Desember 2026</p>
               <p class="event-meta">Pukul 09.00 WIB</p>
-              <p class="event-meta">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung</p>
+              <p class="event-meta event-address">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung
+              </p>
             </article>
             <article class="event-item">
               <h3>Resepsi</h3>
               <p class="event-date">Sabtu, 26 Desember 2026</p>
               <p class="event-meta">Pukul 11.00 WIB</p>
-              <p class="event-meta">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung</p>
+              <p class="event-meta event-address">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung
+              </p>
             </article>
           </div>
           <div class="reveal" style="margin-top: 2.5rem">
@@ -1428,10 +1447,14 @@
               </button>
             </div>
             <div v-if="cameraOpen" class="studio-camera">
-              <video ref="cameraVideo" autoplay playsinline muted aria-label="Pratinjau kamera"></video>
+              <video ref="cameraVideo" autoplay playsinline muted aria-label="Pratinjau kamera"
+                :style="cameraFacing === 'user' ? 'transform: scaleX(-1)' : ''"></video>
               <div class="studio-camera-actions">
                 <button class="button button-gold" type="button" @click="captureCameraPhoto">
                   Ambil foto
+                </button>
+                <button class="button button-outline" type="button" @click="switchCamera">
+                  Ganti kamera
                 </button>
                 <button class="button button-outline" type="button" @click="closeCamera">
                   Tutup kamera
@@ -1494,6 +1517,7 @@
           studioDragOver: false,
           cameraOpen: false,
           cameraStream: null,
+          cameraFacing: "environment",
           storyReady: false,
           storyRendering: false,
           storyStatus: "",
@@ -1643,7 +1667,7 @@
           this.storyStatus = "Meminta izin kamera…";
           try {
             const stream = await navigator.mediaDevices.getUserMedia({
-              video: { facingMode: { ideal: "environment" } },
+              video: { facingMode: { ideal: this.cameraFacing } },
               audio: false,
             });
             if (!this.studioOpen) {
@@ -1689,6 +1713,12 @@
           this.stopCamera();
           this.storyStatus = "Kamera ditutup. Foto yang sudah diambil tetap tersedia.";
         },
+        async switchCamera() {
+          this.cameraFacing = this.cameraFacing === "user" ? "environment" : "user";
+          this.stopCamera();
+          this.storyStatus = this.cameraFacing === "user" ? "Beralih ke kamera depan…" : "Beralih ke kamera belakang…";
+          await this.openCamera();
+        },
         async captureCameraPhoto() {
           const video = this.$refs.cameraVideo;
           if (!this.cameraStream || !video?.videoWidth || video.readyState < 2) {
@@ -1704,7 +1734,15 @@
             this.storyStatus = "Foto tidak dapat diambil karena canvas tidak tersedia.";
             return;
           }
+          if (this.cameraFacing === "user") {
+            context.save();
+            context.translate(canvas.width, 0);
+            context.scale(-1, 1);
+          }
           context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          if (this.cameraFacing === "user") {
+            context.restore();
+          }
 
           try {
             const blob = await new Promise((resolve, reject) => {
@@ -1913,13 +1951,16 @@
               ];
             }
             images.forEach((image, index) => this.drawStoryImage(context, image, boxes[index]));
+            if (images.length === 1) {
+              this.drawStoryFlowers(context, boxes[0]);
+            }
 
             context.fillStyle = "#c6a76a";
             context.font = "italic 36px 'Playfair Display', Georgia, serif";
             context.fillText("Dengan penuh cinta dan doa", 540, 1680);
             context.fillStyle = "#f8f7f2";
-            context.font = "500 34px 'Playfair Display', Georgia, serif";
-            context.fillText("Muhamad Faishal Azizi  &  Widi Siti Alivah", 540, 1745, 960);
+            context.font = "500 30px 'Playfair Display', Georgia, serif";
+            context.fillText("Muhamad Faishal Azizi  &  Widi Siti Alivah", 540, 1745, 900);
             context.fillStyle = "rgba(248, 247, 242, 0.66)";
             context.font = "500 19px 'DM Sans', sans-serif";
             context.fillText("MASJID ISTIQAMAH · BANDUNG", 540, 1800);
@@ -1975,6 +2016,44 @@
           context.strokeStyle = "rgba(198, 167, 106, 0.72)";
           context.lineWidth = 2;
           context.stroke();
+          context.restore();
+        },
+        drawStoryFlowers(context, box) {
+          const baseX = box.x + box.width / 2;
+          const baseY = box.y - 8;
+          const flowers = [
+            { x: baseX, y: box.y - 128, scale: 1 },
+            { x: baseX - 74, y: box.y - 92, scale: 0.78 },
+            { x: baseX + 74, y: box.y - 92, scale: 0.78 },
+          ];
+          context.save();
+          context.strokeStyle = "rgba(198, 167, 106, 0.9)";
+          context.lineWidth = 2;
+          flowers.forEach((flower) => {
+            context.beginPath();
+            context.moveTo(baseX, baseY);
+            context.quadraticCurveTo((baseX + flower.x) / 2, (baseY + flower.y) / 2 + 18, flower.x, flower.y + 16 * flower.scale);
+            context.stroke();
+          });
+          flowers.forEach((flower) => {
+            for (let petal = 0; petal < 5; petal += 1) {
+              context.save();
+              context.translate(flower.x, flower.y);
+              context.rotate((petal * 72 * Math.PI) / 180);
+              context.beginPath();
+              context.ellipse(0, -13 * flower.scale, 6.5 * flower.scale, 13 * flower.scale, 0, 0, Math.PI * 2);
+              context.fillStyle = "#f8f7f2";
+              context.fill();
+              context.strokeStyle = "rgba(198, 167, 106, 0.85)";
+              context.lineWidth = 1.2;
+              context.stroke();
+              context.restore();
+            }
+            context.beginPath();
+            context.arc(flower.x, flower.y, 4.6 * flower.scale, 0, Math.PI * 2);
+            context.fillStyle = "#c6a76a";
+            context.fill();
+          });
           context.restore();
         },
         downloadStory() {
