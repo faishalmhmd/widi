@@ -224,11 +224,30 @@
       }
 
       .cover-date {
-        margin: 1.5rem 0 1.9rem;
+        margin: 1.5rem 0 0.6rem;
         color: rgba(248, 247, 242, 0.7);
         font-size: 0.7rem;
         letter-spacing: 0.23em;
         text-transform: uppercase;
+      }
+
+      .cover-recipient {
+        margin: 0 0 1.15rem;
+        color: rgba(248, 247, 242, 0.64);
+        font-size: 0.6rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .cover-recipient strong {
+        display: block;
+        margin-top: 0.15rem;
+        color: var(--ivory);
+        font-family: var(--serif);
+        font-size: 1.55rem;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        text-transform: none;
       }
 
       .cover-art {
@@ -945,6 +964,7 @@
             <span>Widi Siti Alivah</span>
           </h1>
           <p class="cover-date">Sabtu, 26 Desember 2026</p>
+          <p class="cover-recipient">Kepada Yth.<strong>{{ inviteName }}</strong></p>
           <svg class="cover-art" viewBox="0 0 220 140" role="img" aria-label="Ilustrasi cincin pernikahan">
             <defs>
               <linearGradient id="ringGold" x1="0" x2="1" y1="0" y2="1">
@@ -1268,10 +1288,16 @@
     <script>
       const { createApp } = Vue;
 
+      function getInviteName() {
+        const rawName = new URLSearchParams(window.location.search).get("invite") || "";
+        return rawName.replace(/-/g, " ").replace(/\s+/g, " ").trim() || "Tamu Undangan";
+      }
+
       createApp({
         data() {
           return {
             isOpen: false,
+            inviteName: getInviteName(),
             eventDate: new Date("2026-12-26T00:00:00+07:00"),
             now: Date.now(),
             countdownTimer: null,
