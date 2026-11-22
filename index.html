@@ -1291,16 +1291,10 @@
         <h3 id="gift-title" class="gift-bank">{{ giftBank }}</h3>
         <p class="gift-account-big">{{ accountNumber }}</p>
         <p class="gift-owner">{{ giftOwner }}</p>
-        <button class="button button-outline" type="button" @click="copyAccount">
-          Salin nomor rekening
-        </button>
         <div class="ornament" aria-hidden="true"><span>✦</span></div>
         <p class="eyebrow">Kirim Kado Fisik</p>
         <p class="gift-address-name">{{ giftAddressName }}</p>
         <p class="gift-address">{{ giftAddress }}</p>
-        <button class="button button-outline" type="button" @click="copyAddress">
-          Salin alamat
-        </button>
       </section>
     </div>
 
@@ -1991,26 +1985,6 @@
           this.toastTimer = window.setTimeout(() => {
             this.toast = "";
           }, 3200);
-        },
-        async copyAccount() {
-          if (this.accountNumber === "Nomor rekening akan diinformasikan") {
-            this.showToast("Informasi rekening akan ditambahkan setelah tersedia.");
-            return;
-          }
-          try {
-            await navigator.clipboard.writeText(this.accountNumber);
-            this.showToast("Nomor rekening berhasil disalin.");
-          } catch (error) {
-            this.showToast("Nomor rekening tidak dapat disalin. Silakan salin secara manual.");
-          }
-        },
-        async copyAddress() {
-          try {
-            await navigator.clipboard.writeText(`${this.giftAddressName} — ${this.giftAddress}`);
-            this.showToast("Alamat berhasil disalin.");
-          } catch (error) {
-            this.showToast("Alamat tidak dapat disalin. Silakan salin secara manual.");
-          }
         },
         submitRsvp() {
           const name = this.form.name.trim();
