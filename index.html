@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap"
     rel="stylesheet" />
   <script>
     window.tailwindConfig = {
@@ -27,7 +27,7 @@
           },
           fontFamily: {
             sans: ["DM Sans", "sans-serif"],
-            serif: ["Cormorant Garamond", "Georgia", "serif"],
+            serif: ["Playfair Display", "Georgia", "serif"],
             script: ["Parisienne", "cursive"],
           },
           keyframes: {
@@ -100,7 +100,7 @@
 
         .arabic-greeting {
           @apply mb-5 font-normal text-navy;
-          font-family: "Amiri", "Cormorant Garamond", Georgia, serif;
+          font-family: "Amiri", "Playfair Display", Georgia, serif;
           font-size: clamp(1.5rem, 4.5vw, 2.1rem);
           line-height: 1.9;
         }
@@ -948,10 +948,9 @@
       <div class="cover-inner">
         <p class="cover-kicker">The Wedding Of</p>
         <h1>
-          <span>Muhamad Faishal</span>
-          <span>Azizi</span>
+          <span>Faishal</span>
           <span class="cover-ampersand">&amp;</span>
-          <span>Widi Siti Alivah</span>
+          <span>Widi</span>
         </h1>
         <p class="cover-date">Sabtu, 26 Desember 2026</p>
         <p class="cover-recipient">Kepada Yth.<strong>{{ inviteName }}</strong></p>
@@ -1008,7 +1007,7 @@
             <cite>QS. Ar-Rum: 21</cite>
           </blockquote>
           <p class="opening-copy mt-9">
-            Muhamad Faishal Azizi <span style="color: var(--gold)">&amp;</span> Widi Siti Alivah
+            Muhamad Faishal Azizi<br /><span style="color: var(--gold)">&amp;</span><br />Widi Siti Alivah
           </p>
         </div>
       </section>
@@ -1150,15 +1149,16 @@
               <p class="event-date">Sabtu, 26 Desember 2026</p>
               <p class="event-meta">Pukul 09.00 WIB</p>
               <p class="event-meta">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung</p>
-              <a class="button" :href="mapsUrl" target="_blank" rel="noreferrer">Buka Google Maps ↗</a>
             </article>
             <article class="event-item">
               <h3>Resepsi</h3>
               <p class="event-date">Sabtu, 26 Desember 2026</p>
               <p class="event-meta">Pukul 11.00 WIB</p>
               <p class="event-meta">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung</p>
-              <a class="button" :href="mapsUrl" target="_blank" rel="noreferrer">Buka Google Maps ↗</a>
             </article>
+          </div>
+          <div class="reveal" style="margin-top: 2.5rem">
+            <a class="button" :href="mapsUrl" target="_blank" rel="noreferrer">Buka Google Maps ↗</a>
           </div>
         </div>
       </section>
@@ -1303,7 +1303,7 @@
         <p class="closing-copy">
           Merupakan kebahagiaan bagi kami atas doa, perhatian, dan kehadiran Anda di hari istimewa ini.
         </p>
-        <p class="closing-names">Muhamad Faishal Azizi &amp; Widi Siti Alivah</p>
+        <p class="closing-names">Muhamad Faishal Azizi<br />&amp;<br />Widi Siti Alivah</p>
         <button class="button button-gold studio-launch" type="button" @click="openStoryStudio">
           Buat Story Instagram
         </button>
@@ -1896,53 +1896,29 @@
             context.fillStyle = background;
             context.fillRect(0, 0, 1080, 1920);
 
-            context.strokeStyle = "rgba(198, 167, 106, 0.34)";
-            context.lineWidth = 2;
-            context.beginPath();
-            context.arc(540, 145, 430, Math.PI * 1.08, Math.PI * 1.92);
-            context.stroke();
-            context.textAlign = "center";
-            context.fillStyle = "#c6a76a";
-            context.font = "600 25px 'DM Sans', sans-serif";
-            context.fillText("THE WEDDING OF", 540, 120);
-            context.fillStyle = "#f8f7f2";
-            context.font = "500 60px 'Cormorant Garamond', Georgia, serif";
-            context.fillText("Muhamad Faishal Azizi", 540, 220, 900);
-            context.fillStyle = "#c6a76a";
-            context.font = "italic 42px 'Cormorant Garamond', Georgia, serif";
-            context.fillText("&", 540, 278);
-            context.fillStyle = "#f8f7f2";
-            context.font = "500 60px 'Cormorant Garamond', Georgia, serif";
-            context.fillText("Widi Siti Alivah", 540, 345, 900);
-            context.fillStyle = "rgba(248, 247, 242, 0.76)";
-            context.font = "500 24px 'DM Sans', sans-serif";
-            context.fillText("SABTU, 26 DESEMBER 2026", 540, 397);
-            context.fillStyle = "#c6a76a";
-            context.font = "500 25px 'DM Sans', sans-serif";
-            context.fillText(`Kepada Yth. ${this.inviteName}`, 540, 445, 920);
 
             let boxes;
             if (images.length === 1) {
-              boxes = [{ x: 100, y: 690, width: 880, height: 660, rotation: -1.2 }];
+              boxes = [{ x: 100, y: 520, width: 880, height: 660, rotation: -1.2 }];
             } else if (images.length === 2) {
               boxes = [
-                { x: 180, y: 500, width: 720, height: 540, rotation: -1.2 },
-                { x: 180, y: 1070, width: 720, height: 540, rotation: 1.1 },
+                { x: 180, y: 330, width: 720, height: 540, rotation: -1.2 },
+                { x: 180, y: 900, width: 720, height: 540, rotation: 1.1 },
               ];
             } else {
               boxes = [
-                { x: 140, y: 560, width: 800, height: 600, rotation: -1.2 },
-                { x: 140, y: 1190, width: 390, height: 293, rotation: 1.1 },
-                { x: 550, y: 1190, width: 390, height: 293, rotation: -0.9 },
+                { x: 140, y: 380, width: 800, height: 600, rotation: -1.2 },
+                { x: 140, y: 1010, width: 390, height: 293, rotation: 1.1 },
+                { x: 550, y: 1010, width: 390, height: 293, rotation: -0.9 },
               ];
             }
             images.forEach((image, index) => this.drawStoryImage(context, image, boxes[index]));
 
             context.fillStyle = "#c6a76a";
-            context.font = "italic 36px 'Cormorant Garamond', Georgia, serif";
+            context.font = "italic 36px 'Playfair Display', Georgia, serif";
             context.fillText("Dengan penuh cinta dan doa", 540, 1680);
             context.fillStyle = "#f8f7f2";
-            context.font = "500 34px 'Cormorant Garamond', Georgia, serif";
+            context.font = "500 34px 'Playfair Display', Georgia, serif";
             context.fillText("Muhamad Faishal Azizi  &  Widi Siti Alivah", 540, 1745, 960);
             context.fillStyle = "rgba(248, 247, 242, 0.66)";
             context.font = "500 19px 'DM Sans', sans-serif";
