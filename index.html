@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap"
     rel="stylesheet" />
   <script>
     window.tailwindConfig = {
@@ -96,6 +96,13 @@
       @layer components {
         .eyebrow {
           @apply mb-4 text-[.62rem] font-semibold uppercase tracking-[.25em] text-gold;
+        }
+
+        .arabic-greeting {
+          @apply mb-5 font-normal text-navy;
+          font-family: "Amiri", "Cormorant Garamond", Georgia, serif;
+          font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+          line-height: 1.9;
         }
 
         .section-title {
@@ -455,6 +462,18 @@
 
         .gift-account-big {
           @apply mb-0 mt-2 font-serif text-[1.9rem] leading-tight tracking-[.05em] text-navy;
+        }
+
+        .gift-modal .ornament {
+          @apply my-6;
+        }
+
+        .gift-address-name {
+          @apply mb-0 mt-1 font-serif text-[1.3rem] text-navy;
+        }
+
+        .gift-address {
+          @apply mx-auto mb-5 mt-1 max-w-[19rem] text-[.78rem] leading-relaxed text-muted;
         }
 
         .rsvp-form {
@@ -951,7 +970,7 @@
     <main>
       <section class="section opening center" id="pembuka">
         <div class="section-inner reveal">
-          <p class="eyebrow">Assalamu’alaikum warahmatullahi wabarakatuh</p>
+          <p class="arabic-greeting" lang="ar" dir="rtl">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ</p>
           <h2 class="section-title">Dengan memohon rahmat dan ridha Allah</h2>
           <div class="ornament" aria-hidden="true"><span>✦</span></div>
           <p class="opening-copy">
@@ -1275,6 +1294,13 @@
         <button class="button button-outline" type="button" @click="copyAccount">
           Salin nomor rekening
         </button>
+        <div class="ornament" aria-hidden="true"><span>✦</span></div>
+        <p class="eyebrow">Kirim Kado Fisik</p>
+        <p class="gift-address-name">{{ giftAddressName }}</p>
+        <p class="gift-address">{{ giftAddress }}</p>
+        <button class="button button-outline" type="button" @click="copyAddress">
+          Salin alamat
+        </button>
       </section>
     </div>
 
@@ -1441,9 +1467,11 @@
           },
           wishes: [],
           giftOpen: false,
-          giftBank: "Informasi bank akan diinformasikan",
-          accountNumber: "Nomor rekening akan diinformasikan",
-          giftOwner: "Atas nama —",
+          giftBank: "BCA (Dummy)",
+          accountNumber: "1234567890",
+          giftOwner: "Atas nama Widi Siti Alivah",
+          giftAddressName: "Widi Siti Alivah",
+          giftAddress: "Kp. Cikutra Dalam No. 10, RT 09/RW 02, Kel. Neglasari, Kec. Cibeunying Kaler, Kota Bandung",
           mapsUrl: "https://www.google.com/maps/search/?api=1&query=-6.90456%2C107.62141",
           gallery: [
             {
@@ -1974,6 +2002,14 @@
             this.showToast("Nomor rekening berhasil disalin.");
           } catch (error) {
             this.showToast("Nomor rekening tidak dapat disalin. Silakan salin secara manual.");
+          }
+        },
+        async copyAddress() {
+          try {
+            await navigator.clipboard.writeText(`${this.giftAddressName} — ${this.giftAddress}`);
+            this.showToast("Alamat berhasil disalin.");
+          } catch (error) {
+            this.showToast("Alamat tidak dapat disalin. Silakan salin secara manual.");
           }
         },
         submitRsvp() {
