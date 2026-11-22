@@ -531,7 +531,31 @@
         }
 
         .wishes-list {
-          @apply mx-auto mt-10 grid w-full max-w-[600px] gap-4 text-left;
+          @apply mx-auto mt-12 grid w-full max-w-[600px] gap-4 text-left;
+        }
+
+        .wishes-heading {
+          @apply m-0 text-center font-serif text-[1.6rem] font-medium text-navy;
+        }
+
+        .wishes-summary {
+          @apply m-0 text-center text-[.7rem] font-semibold uppercase tracking-[.12em] text-gold;
+        }
+
+        .wishes-empty {
+          @apply m-0 border border-dashed border-[rgba(20,43,74,.25)] px-5 py-6 text-center text-[.78rem] text-muted;
+        }
+
+        .wish-head {
+          @apply flex flex-wrap items-baseline justify-between gap-2;
+        }
+
+        .wish-badge {
+          @apply inline-block shrink-0 bg-[rgba(198,167,106,.18)] px-2 py-0.5 text-[.62rem] font-semibold uppercase tracking-[.08em] text-navy;
+        }
+
+        .wish-badge.absent {
+          @apply bg-[rgba(20,43,74,.08)] text-muted;
         }
 
         .wish {
@@ -1228,13 +1252,24 @@
               <textarea id="guest-wish" v-model.trim="form.wish" name="wish"
                 placeholder="Tuliskan ucapan dan doa untuk kedua mempelai" required></textarea>
             </div>
-            <button class="button button-outline form-submit" type="submit">Kirim konfirmasi</button>
+            <button class="button button-outline form-submit" type="submit" :disabled="rsvpSaving">
+              {{ rsvpSaving ? "Mengirim..." : "Kirim konfirmasi" }}
+            </button>
             <p v-if="formStatus" class="form-status" role="status">{{ formStatus }}</p>
           </form>
-          <div v-if="wishes.length" class="wishes-list" aria-live="polite">
+          <div class="wishes-list" aria-live="polite">
+            <h3 class="wishes-heading">Ucapan &amp; Konfirmasi Tamu</h3>
+            <p v-if="wishes.length" class="wishes-summary">{{ wishesSummary }}</p>
+            <p v-else class="wishes-empty">
+              Belum ada tamu yang mengisi form. Konfirmasi dan ucapan yang masuk akan tampil di sini.
+            </p>
             <article v-for="(wish, index) in wishes" :key="index" class="wish">
-              <strong>{{ wish.name }}</strong>
-              <p>{{ wish.attendance }} · {{ wish.count }} orang</p>
+              <div class="wish-head">
+                <strong>{{ wish.name }}</strong>
+                <span class="wish-badge" :class="{ absent: wish.attendance !== 'Hadir' }">
+                  {{ wish.attendance }} · {{ wish.count }} orang
+                </span>
+              </div>
               <p>{{ wish.message }}</p>
             </article>
           </div>
@@ -1430,6 +1465,21 @@
       return rawName.replace(/-/g, " ").replace(/\s+/g, " ").trim() || "Tamu Undangan";
     }
 
+    function utf8ToBase64(text) {
+      const bytes = new TextEncoder().encode(text);
+      let binary = "";
+      bytes.forEach((byte) => {
+        binary += String.fromCharCode(byte);
+      });
+      return btoa(binary);
+    }
+
+    function base64ToUtf8(base64) {
+      const binary = atob(base64.replace(/\s/g, ""));
+      const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    }
+
     createApp({
       data() {
         return {
@@ -1453,6 +1503,13 @@
           studioTilt: true,
           studioSelection: ["gallery-0", "gallery-1", "gallery-2"],
           formStatus: "",
+          githubOwner: "faishalmhmd",
+          githubRepo: "",
+          githubToken: "",
+          rsvpFile: "rsvp.json",
+          rsvpBranch: "main",
+          rsvpSha: null,
+          rsvpSaving: false,
           form: {
             name: "",
             attendance: "",
@@ -1461,8 +1518,8 @@
           },
           wishes: [],
           giftOpen: false,
-          giftBank: "BCA (Dummy)",
-          accountNumber: "1234567890",
+          giftBank: "BRI",
+          accountNumber: "7006-01-005552-50-6",
           giftOwner: "Atas nama Widi Siti Alivah",
           giftAddressName: "Widi Siti Alivah",
           giftAddress: "Kp. Cikutra Dalam No. 10, RT 09/RW 02, Kel. Neglasari, Kec. Cibeunying Kaler, Kota Bandung",
@@ -1501,6 +1558,11 @@
         selectedStudioAssets() {
           return this.studioAssets.filter((photo) => this.studioSelection.includes(photo.id));
         },
+        wishesSummary() {
+          const attending = this.wishes.filter((wish) => wish.attendance === "Hadir");
+          const people = attending.reduce((total, wish) => total + Number(wish.count || 0), 0);
+          return `${this.wishes.length} tamu sudah mengisi · ${attending.length} konfirmasi hadir (${people} orang)`;
+        },
         countdownUnits() {
           if (!this.eventDate) {
             return [
@@ -1533,6 +1595,7 @@
         this.countdownTimer = window.setInterval(() => {
           this.now = Date.now();
         }, 1000);
+        this.loadRsvp();
         this.$nextTick(() => this.observeSections());
       },
       beforeUnmount() {
@@ -1986,7 +2049,46 @@
             this.toast = "";
           }, 3200);
         },
-        submitRsvp() {
+        rsvpApiUrl() {
+          return `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.rsvpFile}`;
+        },
+        rsvpConfigured() {
+          return Boolean(this.githubOwner && this.githubRepo && this.githubToken);
+        },
+        rsvpHeaders() {
+          return {
+            Authorization: `Bearer ${this.githubToken}`,
+            Accept: "application/vnd.github+json",
+          };
+        },
+        async loadRsvp() {
+          try {
+            let entries = null;
+            if (this.rsvpConfigured()) {
+              const response = await fetch(`${this.rsvpApiUrl()}?ref=${this.rsvpBranch}`, {
+                headers: this.rsvpHeaders(),
+              });
+              if (response.ok) {
+                const data = await response.json();
+                this.rsvpSha = data.sha;
+                entries = JSON.parse(base64ToUtf8(data.content));
+              }
+            } else if (this.githubOwner && this.githubRepo) {
+              const response = await fetch(
+                `https://raw.githubusercontent.com/${this.githubOwner}/${this.githubRepo}/${this.rsvpBranch}/${this.rsvpFile}`,
+              );
+              if (response.ok) {
+                entries = await response.json();
+              }
+            }
+            if (Array.isArray(entries)) {
+              this.wishes = entries.slice().reverse();
+            }
+          } catch (error) {
+            console.warn("File rsvp.json belum dapat dimuat.", error);
+          }
+        },
+        async submitRsvp() {
           const name = this.form.name.trim();
           const message = this.form.wish.trim();
           if (!name || !message || !this.form.attendance || !this.form.count) {
@@ -2001,14 +2103,55 @@
             this.formStatus = "Kalau belum dapat hadir, pilih jumlah 0 orang.";
             return;
           }
-          this.wishes.unshift({
+          const payload = {
             name,
             attendance: this.form.attendance,
             count: this.form.count,
             message,
-          });
-          this.formStatus = "Terima kasih! Konfirmasi tampil pada sesi ini dan belum dikirim ke penyelenggara.";
+            sentAt: new Date().toISOString(),
+          };
+          this.wishes.unshift(payload);
           this.form = { name: "", attendance: "", count: "", wish: "" };
+          if (!this.rsvpConfigured()) {
+            this.formStatus = "Terima kasih! (Config GitHub belum diisi — konfirmasi belum tersimpan ke rsvp.json.)";
+            return;
+          }
+          this.rsvpSaving = true;
+          this.formStatus = "Mengirim konfirmasi…";
+          try {
+            const getResponse = await fetch(`${this.rsvpApiUrl()}?ref=${this.rsvpBranch}`, {
+              headers: this.rsvpHeaders(),
+            });
+            let entries = [];
+            if (getResponse.ok) {
+              const data = await getResponse.json();
+              this.rsvpSha = data.sha;
+              entries = JSON.parse(base64ToUtf8(data.content));
+            } else if (getResponse.status !== 404) {
+              throw new Error("Gagal membaca rsvp.json");
+            }
+            entries.push(payload);
+            const putResponse = await fetch(this.rsvpApiUrl(), {
+              method: "PUT",
+              headers: { ...this.rsvpHeaders(), "Content-Type": "application/json" },
+              body: JSON.stringify({
+                message: `rsvp: ${payload.name}`,
+                content: utf8ToBase64(JSON.stringify(entries, null, 2)),
+                sha: this.rsvpSha || undefined,
+                branch: this.rsvpBranch,
+              }),
+            });
+            if (!putResponse.ok) {
+              throw new Error("Gagal menyimpan rsvp.json");
+            }
+            const putData = await putResponse.json();
+            this.rsvpSha = putData.content?.sha || this.rsvpSha;
+            this.formStatus = "Terima kasih! Konfirmasi kehadiranmu sudah tersimpan.";
+          } catch (error) {
+            this.formStatus = "Maaf, konfirmasi gagal tersimpan. Silakan coba lagi.";
+          } finally {
+            this.rsvpSaving = false;
+          }
         },
       },
     }).mount("#app");
