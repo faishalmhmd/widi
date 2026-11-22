@@ -197,7 +197,7 @@
         }
 
         .cover-recipient {
-          @apply mb-5 text-[.6rem] uppercase tracking-[.16em] text-ivory/65;
+          @apply mb-5 mt-6 text-[.6rem] uppercase tracking-[.16em] text-ivory/65;
         }
 
         .cover-recipient strong {
@@ -255,7 +255,7 @@
         }
 
         .verse {
-          @apply mx-auto mt-8 max-w-[36rem] text-[.76rem] italic text-muted;
+          @apply mx-auto mt-8 max-w-[38rem] text-[.92rem] italic leading-relaxed text-muted;
         }
 
         .verse cite {
@@ -364,6 +364,10 @@
           @apply text-[.95rem] leading-relaxed text-ivory/85;
         }
 
+        .event-time {
+          @apply text-[1.05rem] font-semibold text-ivory;
+        }
+
         .event-item .button {
           @apply mt-6 text-ivory;
         }
@@ -438,6 +442,10 @@
 
         .person-bio strong {
           @apply font-semibold text-navy;
+        }
+
+        .person-parents {
+          @apply block text-[.88rem];
         }
 
         .person-address {
@@ -968,7 +976,6 @@
           <span class="cover-ampersand">&amp;</span>
           <span>Widi</span>
         </h1>
-        <p class="cover-date">Sabtu, 26 Desember 2026</p>
         <p class="cover-recipient">Kepada Yth.<strong>{{ inviteName }}</strong></p>
         <svg class="cover-art" viewBox="0 0 220 140" role="img" aria-label="Ilustrasi cincin pernikahan">
           <defs>
@@ -1085,8 +1092,8 @@
               </div>
               <p class="eyebrow">Mempelai pria</p>
               <h3 class="person-name">Muhamad Faishal Azizi</h3>
-              <p class="person-bio">Putra kedua dari Bapak <strong>Tobroni, M.Pd.I</strong> &amp; Ibu <strong>Gali
-                  Yudawati, S.Pd</strong><span class="person-address">Kp.
+              <p class="person-bio"><span class="person-parents">Putra kedua dari Bapak <strong>Tobroni, M.Pd.I</strong>
+                  &amp; Ibu <strong>Gali Yudawati, S.Pd</strong></span><span class="person-address">Kp.
                   Babakan Pringan, RT 02/RW 05, Kel. Tagogapu, Kec. Padalarang</span></p>
             </article>
             <article class="person reveal">
@@ -1145,8 +1152,8 @@
               </div>
               <p class="eyebrow">Mempelai wanita</p>
               <h3 class="person-name">Widi Siti Alivah, S.Pd.</h3>
-              <p class="person-bio">Putri keempat (bungsu) dari Bapak <strong>Sutaryo (Alm)</strong> &amp; Ibu
-                <strong>Lasmini</strong><span class="person-address">Kp. Cikutra
+              <p class="person-bio"><span class="person-parents">Putri keempat (bungsu) dari Bapak <strong>Sutaryo
+                    (Alm)</strong> &amp; Ibu <strong>Lasmini</strong></span><span class="person-address">Kp. Cikutra
                   Dalam No. 10, RT 09/RW 02, Kel. Neglasari, Kec. Cibeunying Kaler</span></p>
             </article>
           </div>
@@ -1164,14 +1171,14 @@
             <article class="event-item">
               <h3>Akad Nikah</h3>
               <p class="event-date">Sabtu, 26 Desember 2026</p>
-              <p class="event-meta">Pukul 09.00 WIB</p>
+              <p class="event-meta event-time">Pukul 09.00 WIB</p>
               <p class="event-meta event-address">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung
               </p>
             </article>
             <article class="event-item">
               <h3>Resepsi</h3>
               <p class="event-date">Sabtu, 26 Desember 2026</p>
-              <p class="event-meta">Pukul 11.00 WIB</p>
+              <p class="event-meta event-time">Pukul 11.00 – 14.00 WIB</p>
               <p class="event-meta event-address">Plaza Masjid Istiqamah, Jl. Taman Citarum, Bandung Wetan, Kota Bandung
               </p>
             </article>
