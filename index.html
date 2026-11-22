@@ -793,6 +793,248 @@
         font-size: 1.5rem;
       }
 
+      .closing .studio-launch {
+        margin-top: 1.5rem;
+      }
+
+      .studio-backdrop {
+        position: fixed;
+        z-index: 40;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-y: auto;
+        padding: 1rem;
+        background: rgba(5, 15, 28, 0.84);
+        backdrop-filter: blur(7px);
+      }
+
+      .studio-dialog {
+        width: min(940px, 100%);
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+        background: var(--ivory);
+        color: var(--slate);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+      }
+
+      .studio-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.1rem 1.4rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .studio-header .eyebrow {
+        margin: 0;
+      }
+
+      .studio-heading {
+        margin: 0.15rem 0 0;
+        color: var(--navy);
+        font-family: var(--serif);
+        font-size: 1.8rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .studio-close {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--navy);
+        cursor: pointer;
+        font-size: 1.3rem;
+      }
+
+      .studio-layout {
+        display: grid;
+        grid-template-columns: minmax(210px, 300px) minmax(0, 1fr);
+        gap: clamp(1.3rem, 4vw, 2.6rem);
+        padding: 1.5rem;
+      }
+
+      .studio-preview-wrap {
+        align-self: start;
+        text-align: center;
+      }
+
+      .studio-preview {
+        width: min(100%, 280px);
+        max-height: min(62vh, 500px);
+        aspect-ratio: 9 / 16;
+        margin: 0 auto;
+        overflow: hidden;
+        background: var(--deep-navy);
+        box-shadow: 0 8px 26px rgba(11, 27, 48, 0.18);
+      }
+
+      .studio-preview canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .studio-preview-note {
+        margin: 0.7rem 0 0;
+        color: var(--muted);
+        font-size: 0.65rem;
+      }
+
+      .studio-controls h3 {
+        margin: 0;
+        color: var(--navy);
+        font-family: var(--serif);
+        font-size: 1.55rem;
+        font-weight: 500;
+      }
+
+      .studio-controls > p {
+        margin: 0.25rem 0 1rem;
+        color: var(--muted);
+        font-size: 0.72rem;
+      }
+
+      .studio-choice-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+
+      .studio-choice-label {
+        margin-right: auto;
+        color: var(--navy);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .studio-count-choice {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--navy);
+        cursor: pointer;
+        font-size: 0.75rem;
+      }
+
+      .studio-count-choice.selected {
+        border-color: var(--navy);
+        background: var(--navy);
+        color: var(--ivory);
+      }
+
+      .studio-tilt-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0 0 1rem;
+        color: var(--slate);
+        cursor: pointer;
+        font-size: 0.7rem;
+      }
+
+      .studio-tilt-toggle input {
+        accent-color: var(--navy);
+      }
+
+      .studio-assets {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.55rem;
+      }
+
+      .studio-asset {
+        position: relative;
+        aspect-ratio: 0.82;
+        overflow: hidden;
+        padding: 0;
+        border: 1px solid rgba(20, 43, 74, 0.14);
+        background: #e7e4dc;
+        cursor: pointer;
+      }
+
+      .studio-asset.selected {
+        border: 2px solid var(--gold);
+      }
+
+      .studio-asset img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .studio-asset span {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 0.35rem 0.25rem;
+        background: linear-gradient(transparent, rgba(11, 27, 48, 0.84));
+        color: white;
+        font-size: 0.56rem;
+        text-align: left;
+      }
+
+      .studio-upload {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+        padding: 0.55rem 0.8rem;
+        border: 1px dashed rgba(20, 43, 74, 0.38);
+        color: var(--navy);
+        cursor: pointer;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .studio-upload input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        clip-path: inset(50%);
+      }
+
+      .studio-status {
+        min-height: 1.25rem;
+        margin: 0.8rem 0 0 !important;
+        color: var(--navy) !important;
+        font-size: 0.67rem !important;
+      }
+
+      .studio-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        margin-top: 1rem;
+      }
+
+      .studio-actions .button {
+        min-height: 42px;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.58rem;
+      }
+
       .footer {
         padding: 1.4rem;
         background: var(--deep-navy);
@@ -913,6 +1155,31 @@
 
         .closing {
           padding-top: 6rem;
+        }
+
+        .studio-backdrop {
+          align-items: flex-start;
+          padding: 0;
+        }
+
+        .studio-dialog {
+          min-height: 100%;
+          max-height: none;
+        }
+
+        .studio-layout {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          padding: 1rem;
+        }
+
+        .studio-preview {
+          width: auto;
+          height: min(56vh, 480px);
+        }
+
+        .studio-assets {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
         }
       }
 
@@ -1278,9 +1545,116 @@
             Merupakan kebahagiaan bagi kami atas doa, perhatian, dan kehadiran Anda di hari istimewa ini.
           </p>
           <p class="closing-names">Muhamad Faishal Azizi &amp; Widi Siti Alivah</p>
+          <button class="button button-gold studio-launch" type="button" @click="openStoryStudio">
+            Buat Story Instagram
+          </button>
         </section>
         <footer class="footer">Dengan cinta · Muhamad Faishal Azizi &amp; Widi Siti Alivah</footer>
       </main>
+
+      <div v-if="studioOpen" class="studio-backdrop" @click.self="closeStoryStudio">
+        <section
+          class="studio-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="studio-title"
+          tabindex="-1"
+          @keydown.esc="closeStoryStudio"
+        >
+          <header class="studio-header">
+            <div>
+              <p class="eyebrow">Wedding story maker</p>
+              <h2 id="studio-title" class="studio-heading">Studio Story</h2>
+            </div>
+            <button
+              ref="studioClose"
+              class="studio-close"
+              type="button"
+              aria-label="Tutup Studio Story"
+              @click="closeStoryStudio"
+            >
+              ×
+            </button>
+          </header>
+          <div class="studio-layout">
+            <div class="studio-preview-wrap">
+              <div class="studio-preview">
+                <canvas
+                  ref="storyCanvas"
+                  width="1080"
+                  height="1920"
+                  role="img"
+                  aria-label="Pratinjau kolase Instagram Story"
+                >
+                  Pratinjau Story undangan.
+                </canvas>
+              </div>
+              <p class="studio-preview-note">Format vertikal 9:16 · 1080 × 1920 px</p>
+            </div>
+            <div class="studio-controls">
+              <h3>Pilih gambar</h3>
+              <p>Pilih foto dari galeri atau unggah gambar sendiri untuk kolase.</p>
+              <div class="studio-choice-row" role="group" aria-label="Jumlah gambar">
+                <span class="studio-choice-label">Jumlah gambar</span>
+                <button
+                  v-for="count in [1, 2, 3]"
+                  :key="count"
+                  class="studio-count-choice"
+                  :class="{ selected: studioImageCount === count }"
+                  type="button"
+                  :aria-pressed="studioImageCount === count"
+                  :aria-label="`${count} gambar`"
+                  @click="setStudioImageCount(count)"
+                >
+                  {{ count }}
+                </button>
+              </div>
+              <label class="studio-tilt-toggle">
+                <input v-model="studioTilt" type="checkbox" @change="renderStory" />
+                Miringkan foto sedikit
+              </label>
+              <div class="studio-assets">
+                <button
+                  v-for="photo in studioAssets"
+                  :key="photo.id"
+                  class="studio-asset"
+                  :class="{ selected: studioSelection.includes(photo.id) }"
+                  type="button"
+                  :aria-pressed="studioSelection.includes(photo.id)"
+                  :aria-label="`${studioSelection.includes(photo.id) ? 'Hapus' : 'Pilih'} ${photo.caption}`"
+                  @click="toggleStudioPhoto(photo.id)"
+                >
+                  <img :src="photo.src" :alt="photo.caption" crossorigin="anonymous" />
+                  <span>{{ photo.caption }}</span>
+                </button>
+              </div>
+              <label class="studio-upload">
+                + Unggah foto (maks. 3)
+                <input type="file" accept="image/*" multiple @change="handleStudioUpload" />
+              </label>
+              <p class="studio-status" role="status">{{ storyStatus }}</p>
+              <div class="studio-actions">
+                <button
+                  class="button button-outline"
+                  type="button"
+                  :disabled="storyRendering || !studioSelection.length"
+                  @click="renderStory"
+                >
+                  {{ storyRendering ? "Menyusun..." : "Perbarui pratinjau" }}
+                </button>
+                <button
+                  class="button button-gold"
+                  type="button"
+                  :disabled="!storyReady || storyRendering"
+                  @click="downloadStory"
+                >
+                  Unduh PNG
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
       <div v-if="toast" class="toast" role="status">{{ toast }}</div>
     </div>
@@ -1303,6 +1677,15 @@
             countdownTimer: null,
             toast: "",
             toastTimer: null,
+            studioOpen: false,
+            storyReady: false,
+            storyRendering: false,
+            storyStatus: "",
+            storyRenderId: 0,
+            uploadedImages: [],
+            studioImageCount: 3,
+            studioTilt: true,
+            studioSelection: ["gallery-0", "gallery-1", "gallery-2"],
             formStatus: "",
             form: {
               name: "",
@@ -1338,6 +1721,15 @@
           };
         },
         computed: {
+          studioAssets() {
+            return [
+              ...this.gallery.map((photo, index) => ({ ...photo, id: `gallery-${index}` })),
+              ...this.uploadedImages,
+            ];
+          },
+          selectedStudioAssets() {
+            return this.studioAssets.filter((photo) => this.studioSelection.includes(photo.id));
+          },
           countdownUnits() {
             if (!this.eventDate) {
               return [
@@ -1375,8 +1767,248 @@
         beforeUnmount() {
           window.clearInterval(this.countdownTimer);
           window.clearTimeout(this.toastTimer);
+          this.uploadedImages.forEach((photo) => URL.revokeObjectURL(photo.src));
         },
         methods: {
+          openStoryStudio() {
+            this.studioOpen = true;
+            this.storyReady = false;
+            this.storyStatus = "Menyiapkan pratinjau Story…";
+            document.body.classList.add("locked");
+            this.$nextTick(() => {
+              this.$refs.studioClose?.focus();
+              this.renderStory();
+            });
+          },
+          closeStoryStudio() {
+            this.studioOpen = false;
+            this.storyReady = false;
+            this.storyRenderId += 1;
+            document.body.classList.remove("locked");
+          },
+          toggleStudioPhoto(id) {
+            const selectedIndex = this.studioSelection.indexOf(id);
+            if (selectedIndex !== -1) {
+              this.studioSelection = this.studioSelection.filter((photoId) => photoId !== id);
+            } else if (this.studioSelection.length < this.studioImageCount) {
+              this.studioSelection.push(id);
+            } else {
+              this.storyStatus = `Jumlah gambar sudah ${this.studioImageCount}. Hapus satu pilihan sebelum menggantinya.`;
+              return;
+            }
+            this.storyReady = false;
+            this.renderStory();
+          },
+          setStudioImageCount(count) {
+            this.studioImageCount = count;
+            let selection = this.studioSelection.slice(0, count);
+            if (selection.length < count) {
+              const additionalPhotos = this.studioAssets
+                .filter((photo) => !selection.includes(photo.id))
+                .slice(0, count - selection.length)
+                .map((photo) => photo.id);
+              selection = [...selection, ...additionalPhotos];
+            }
+            this.studioSelection = selection;
+            this.storyReady = false;
+            this.renderStory();
+          },
+          handleStudioUpload(event) {
+            const files = Array.from(event.target.files || []);
+            event.target.value = "";
+            if (!files.length) {
+              return;
+            }
+            if (files.length > 3) {
+              this.storyStatus = "Pilih maksimal tiga foto dalam satu kali unggah.";
+              return;
+            }
+            if (files.some((file) => !file.type.startsWith("image/"))) {
+              this.storyStatus = "Unggahan harus berupa file gambar.";
+              return;
+            }
+            this.uploadedImages.forEach((photo) => URL.revokeObjectURL(photo.src));
+            this.uploadedImages = files.map((file, index) => ({
+              id: `upload-${Date.now()}-${index}`,
+              src: URL.createObjectURL(file),
+              caption: file.name || `Foto unggahan ${index + 1}`,
+            }));
+            this.studioImageCount = files.length;
+            this.studioSelection = this.uploadedImages.map((photo) => photo.id);
+            this.storyReady = false;
+            this.renderStory();
+          },
+          async renderStory() {
+            if (!this.studioOpen) {
+              return;
+            }
+            const renderId = ++this.storyRenderId;
+            const canvas = this.$refs.storyCanvas;
+            const selectedPhotos = this.selectedStudioAssets.slice(0, this.studioImageCount);
+            if (!canvas || selectedPhotos.length !== this.studioImageCount) {
+              this.storyRendering = false;
+              this.storyReady = false;
+              this.storyStatus = `Pilih ${this.studioImageCount} gambar untuk membuat kolase (${selectedPhotos.length}/${this.studioImageCount} terpilih).`;
+              return;
+            }
+
+            this.storyRendering = true;
+            this.storyReady = false;
+            this.storyStatus = "Sedang menyusun kolase…";
+            try {
+              if (document.fonts?.ready) {
+                await document.fonts.ready;
+              }
+              const images = await Promise.all(
+                selectedPhotos.map((photo) =>
+                  new Promise((resolve, reject) => {
+                    const image = new Image();
+                    if (/^https?:/i.test(photo.src)) {
+                      image.crossOrigin = "anonymous";
+                    }
+                    image.onload = () => resolve(image);
+                    image.onerror = () => reject(new Error(`Gambar “${photo.caption}” tidak dapat dimuat.`));
+                    image.src = photo.src;
+                  }),
+                ),
+              );
+              if (!this.studioOpen || renderId !== this.storyRenderId) {
+                return;
+              }
+
+              const context = canvas.getContext("2d");
+              if (!context) {
+                throw new Error("Canvas tidak tersedia di browser ini.");
+              }
+              canvas.width = 1080;
+              canvas.height = 1920;
+              const background = context.createLinearGradient(0, 0, 1080, 1920);
+              background.addColorStop(0, "#142b4a");
+              background.addColorStop(1, "#0b1b30");
+              context.fillStyle = background;
+              context.fillRect(0, 0, 1080, 1920);
+
+              context.strokeStyle = "rgba(198, 167, 106, 0.34)";
+              context.lineWidth = 2;
+              context.beginPath();
+              context.arc(540, 145, 430, Math.PI * 1.08, Math.PI * 1.92);
+              context.stroke();
+              context.textAlign = "center";
+              context.fillStyle = "#c6a76a";
+              context.font = "600 25px 'DM Sans', sans-serif";
+              context.fillText("THE WEDDING OF", 540, 120);
+              context.fillStyle = "#f8f7f2";
+              context.font = "500 60px 'Cormorant Garamond', Georgia, serif";
+              context.fillText("Muhamad Faishal Azizi", 540, 220, 900);
+              context.fillStyle = "#c6a76a";
+              context.font = "italic 42px 'Cormorant Garamond', Georgia, serif";
+              context.fillText("&", 540, 278);
+              context.fillStyle = "#f8f7f2";
+              context.font = "500 60px 'Cormorant Garamond', Georgia, serif";
+              context.fillText("Widi Siti Alivah", 540, 345, 900);
+              context.fillStyle = "rgba(248, 247, 242, 0.76)";
+              context.font = "500 24px 'DM Sans', sans-serif";
+              context.fillText("SABTU, 26 DESEMBER 2026", 540, 397);
+              context.fillStyle = "#c6a76a";
+              context.font = "500 25px 'DM Sans', sans-serif";
+              context.fillText(`Kepada Yth. ${this.inviteName}`, 540, 445, 920);
+
+              let boxes;
+              if (images.length === 1) {
+                boxes = [{ x: 100, y: 650, width: 880, height: 590, rotation: -1.2 }];
+              } else if (images.length === 2) {
+                boxes = [
+                  { x: 100, y: 560, width: 880, height: 400, rotation: -1.2 },
+                  { x: 100, y: 1010, width: 880, height: 400, rotation: 1.1 },
+                ];
+              } else {
+                boxes = [
+                  { x: 100, y: 500, width: 880, height: 290, rotation: -1.2 },
+                  { x: 100, y: 830, width: 880, height: 290, rotation: 1.1 },
+                  { x: 100, y: 1160, width: 880, height: 290, rotation: -0.9 },
+                ];
+              }
+              images.forEach((image, index) => this.drawStoryImage(context, image, boxes[index]));
+
+              context.fillStyle = "#c6a76a";
+              context.font = "italic 36px 'Cormorant Garamond', Georgia, serif";
+              context.fillText("Dengan penuh cinta dan doa", 540, 1680);
+              context.fillStyle = "#f8f7f2";
+              context.font = "500 34px 'Cormorant Garamond', Georgia, serif";
+              context.fillText("Muhamad Faishal Azizi  &  Widi Siti Alivah", 540, 1745, 960);
+              context.fillStyle = "rgba(248, 247, 242, 0.66)";
+              context.font = "500 19px 'DM Sans', sans-serif";
+              context.fillText("MASJID ISTIQAMAH · BANDUNG", 540, 1800);
+              context.fillText("TERIMA KASIH ATAS DOA DAN RESTUNYA", 540, 1840);
+              this.storyReady = true;
+              this.storyStatus = "Pratinjau siap · format Instagram Story 1080 × 1920 px.";
+            } catch (error) {
+              if (renderId === this.storyRenderId) {
+                this.storyStatus = error instanceof Error
+                  ? error.message
+                  : "Kolase tidak dapat dibuat. Coba pilih gambar lain.";
+              }
+            } finally {
+              if (renderId === this.storyRenderId) {
+                this.storyRendering = false;
+              }
+            }
+          },
+          drawStoryImage(context, image, box) {
+            const radius = 18;
+            const x = -box.width / 2;
+            const y = -box.height / 2;
+            const drawRoundedPath = () => {
+              context.beginPath();
+              context.moveTo(x + radius, y);
+              context.arcTo(x + box.width, y, x + box.width, y + box.height, radius);
+              context.arcTo(x + box.width, y + box.height, x, y + box.height, radius);
+              context.arcTo(x, y + box.height, x, y, radius);
+              context.arcTo(x, y, x + box.width, y, radius);
+              context.closePath();
+            };
+
+            context.save();
+            context.translate(box.x + box.width / 2, box.y + box.height / 2);
+            context.rotate((this.studioTilt ? box.rotation : 0) * (Math.PI / 180));
+            drawRoundedPath();
+            context.clip();
+            const scale = Math.max(box.width / image.naturalWidth, box.height / image.naturalHeight);
+            const sourceWidth = box.width / scale;
+            const sourceHeight = box.height / scale;
+            context.drawImage(
+              image,
+              (image.naturalWidth - sourceWidth) / 2,
+              (image.naturalHeight - sourceHeight) / 2,
+              sourceWidth,
+              sourceHeight,
+              x,
+              y,
+              box.width,
+              box.height,
+            );
+            drawRoundedPath();
+            context.strokeStyle = "rgba(198, 167, 106, 0.72)";
+            context.lineWidth = 2;
+            context.stroke();
+            context.restore();
+          },
+          downloadStory() {
+            const canvas = this.$refs.storyCanvas;
+            if (!canvas || !this.storyReady) {
+              this.storyStatus = "Buat pratinjau terlebih dahulu sebelum mengunduh.";
+              return;
+            }
+            try {
+              const link = document.createElement("a");
+              link.download = "undangan-faishal-widi-story.png";
+              link.href = canvas.toDataURL("image/png");
+              link.click();
+              this.storyStatus = "Gambar Story berhasil diunduh.";
+            } catch (error) {
+              this.storyStatus = "Gambar tidak dapat diekspor. Coba unggah gambar dari perangkat.";
+            }
+          },
           openInvitation() {
             this.isOpen = true;
             document.body.classList.remove("locked");
