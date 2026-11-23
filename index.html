@@ -1467,6 +1467,10 @@
                 @click="downloadStory">
                 Unduh PNG
               </button>
+              <button class="button button-outline" type="button" :disabled="!storyReady || storyRendering"
+                @click="shareStory">
+                Bagikan ke Instagram
+              </button>
             </div>
           </div>
         </div>
@@ -1503,6 +1507,7 @@
           storyRendering: false,
           storyStatus: "",
           storyRenderId: 0,
+          storyBlob: null,
           uploadedImages: [],
           studioImageCount: 3,
           studioTilt: true,
@@ -1626,6 +1631,7 @@
           this.stopCamera();
           this.studioOpen = false;
           this.storyReady = false;
+          this.storyBlob = null;
           this.storyRenderId += 1;
           document.body.classList.remove("locked");
         },
@@ -1874,6 +1880,7 @@
           }
           const renderId = ++this.storyRenderId;
           const canvas = this.$refs.storyCanvas;
+          this.storyBlob = null;
           const selectedPhotos = this.selectedStudioAssets.slice(0, this.studioImageCount);
           if (!canvas || selectedPhotos.length !== this.studioImageCount) {
             this.storyRendering = false;
@@ -1939,6 +1946,14 @@
             context.font = "500 19px 'DM Sans', sans-serif";
             context.fillText("MASJID ISTIQAMAH · BANDUNG", 540, 1800);
             context.fillText("TERIMA KASIH ATAS DOA DAN RESTUNYA", 540, 1840);
+            let storyBlob = null;
+            if (typeof canvas.toBlob === "function") {
+              storyBlob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+            }
+            if (!this.studioOpen || renderId !== this.storyRenderId) {
+              return;
+            }
+            this.storyBlob = storyBlob;
             this.storyReady = true;
             this.storyStatus = "Pratinjau siap · format Instagram Story 1080 × 1920 px.";
           } catch (error) {
@@ -2044,6 +2059,50 @@
             this.storyStatus = "Gambar Story berhasil diunduh.";
           } catch (error) {
             this.storyStatus = "Gambar tidak dapat diekspor. Coba unggah gambar dari perangkat.";
+          }
+        },
+        shareStory() {
+          const canvas = this.$refs.storyCanvas;
+          if (!canvas || !this.storyReady) {
+            this.storyStatus = "Buat pratinjau terlebih dahulu sebelum berbagi.";
+            return;
+          }
+          if (typeof navigator.share !== "function" || typeof File === "undefined" || !this.storyBlob) {
+            this.downloadStory();
+            this.storyStatus = "Berbagi langsung tidak didukung di browser ini. PNG diunduh; unggah ke Story Instagram lalu tambahkan stiker Mention @faishalmhmd dan @widisitia20.";
+            return;
+          }
+
+          try {
+            const file = new File([this.storyBlob], "undangan-faishal-widi-story.png", {
+              type: "image/png",
+            });
+            const shareData = {
+              files: [file],
+              title: "Story undangan Faishal & Widi",
+              text: "Tag @faishalmhmd dan @widisitia20",
+            };
+            if (navigator.canShare && !navigator.canShare(shareData)) {
+              this.downloadStory();
+              this.storyStatus = "Perangkat tidak mendukung berbagi file langsung. PNG diunduh; unggah ke Story Instagram lalu tambahkan stiker Mention @faishalmhmd dan @widisitia20.";
+              return;
+            }
+
+            navigator.share(shareData).then(() => {
+              this.storyStatus = "Pilih Instagram lalu Story. Untuk menandai akun, tambahkan stiker Mention @faishalmhmd dan @widisitia20.";
+            }).catch((error) => {
+              if (error.name === "AbortError") {
+                this.storyStatus = "Berbagi dibatalkan.";
+                return;
+              }
+              console.error("Gagal membagikan Story.", error);
+              this.downloadStory();
+              this.storyStatus = "Berbagi gagal. PNG diunduh; unggah ke Story Instagram lalu tambahkan stiker Mention @faishalmhmd dan @widisitia20.";
+            });
+          } catch (error) {
+            console.error("Gagal menyiapkan file Story untuk dibagikan.", error);
+            this.downloadStory();
+            this.storyStatus = "Berbagi gagal. PNG diunduh; unggah ke Story Instagram lalu tambahkan stiker Mention @faishalmhmd dan @widisitia20.";
           }
         },
         openInvitation() {

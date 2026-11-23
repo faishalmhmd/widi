@@ -8,3 +8,7 @@
 4. Buka halaman undangan dan kirim RSVP percobaan. Tab `RSVP` akan dibuat otomatis di spreadsheet.
 
 Spreadsheet tetap hanya dapat dibuka oleh pemilik dan orang yang diberi akses. Namun, karena daftar ucapan dan nama tamu ditampilkan di halaman undangan, data tersebut dapat dilihat pengunjung. URL Web App juga bersifat publik agar tamu dapat mengirim konfirmasi; jangan menaruh token atau kredensial Google di halaman.
+
+## Berbagi Story Instagram
+
+Tombol **Bagikan ke Instagram** memakai menu berbagi perangkat untuk mengirim PNG pada browser yang mendukung Web Share API. Jika tidak didukung, PNG akan diunduh. Setelah memilih Instagram Story, tambahkan stiker Mention untuk `@faishalmhmd` dan `@widisitia20` secara manual; teks mention biasa bukan tag Instagram.
